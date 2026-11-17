@@ -1,0 +1,218 @@
+/// Root folder of the flat-file sources
+expression DataFolder = "C:\Users\gunas\Downloads\proj\Conquer_JobCosting_v2\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 47af96d1-9a95-48c5-b140-ef81359e7353
+	queryGroup: '00 Parameters'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+/// PostgreSQL server
+expression DbServer = "localhost" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 8c1751be-9c47-45f9-a507-13394f7147d7
+	queryGroup: '00 Parameters'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+/// database name.
+expression DbName = "conquer" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 4c782443-22b1-4455-94a0-a7c4ea934480
+	queryGroup: '00 Parameters'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression fnGetPgTable = ```
+		(schemaName as text, tableName as text) as table => 
+		let
+		    
+		    Source = PostgreSQL.Database(DbServer, DbName),
+		    
+		    Result = Source{[Schema = schemaName, Item = tableName]}[Data]
+		in
+		    Result
+		```
+	lineageTag: 2d5a2f3c-d2de-463b-a6b3-69448f015d75
+	queryGroup: '01 Functions'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
+expression stg_SalesInvoices =
+		let
+		    Source = fnGetPgTable("finance", "sales_invoices")
+		in
+		    Source
+	lineageTag: 8d4e79be-6cf0-4382-80cf-a9cd52cee92a
+	queryGroup: '02 Staging'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression stg_Jobs =
+		let
+		    Source = fnGetPgTable("erp", "jobs")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Quotes =
+		let
+		    Source = fnGetPgTable("erp", "quotes")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_QuoteEstimates =
+		let
+		    Source = fnGetPgTable("erp", "quote_estimates")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_QuoteMachineHours =
+		let
+		    Source = fnGetPgTable("erp", "quote_machine_hours")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Dispatches =
+		let
+		    Source = fnGetPgTable("erp", "dispatches")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_CreditNotes =
+		let
+		    Source = fnGetPgTable("finance", "credit_notes")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_CustomerReceipts =
+		let
+		    Source = fnGetPgTable("finance", "customer_receipts")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_FxRatesUsdInr =
+		let
+		    Source = fnGetPgTable("finance", "fx_rates_usd_inr")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Customers =
+		let
+		    Source = fnGetPgTable("masters", "customers")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Skus =
+		let
+		    Source = fnGetPgTable("masters", "skus")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_SalesReps =
+		let
+		    Source = fnGetPgTable("masters", "sales_reps")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Estimators =
+		let
+		    Source = fnGetPgTable("masters", "estimators")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Operators =
+		let
+		    Source = fnGetPgTable("masters", "operators")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_BoardGrades =
+		let
+		    Source = fnGetPgTable("masters", "board_grades")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_BoardPriceHistory =
+		let
+		    Source = fnGetPgTable("masters", "board_price_history")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_InkPriceList =
+		let
+		    Source = fnGetPgTable("masters", "ink_price_list")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_PlatePriceList =
+		let
+		    Source = fnGetPgTable("masters", "plate_price_list")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_ReworkReasons =
+		let
+		    Source = fnGetPgTable("masters", "rework_reasons")
+		in
+		    Source
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+

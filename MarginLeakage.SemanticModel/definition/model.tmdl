@@ -7,9 +7,35 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
+queryGroup '00 Parameters'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup '01 Functions'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup '02 Staging'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup '03 Dimensions'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup '04 Facts'
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup '05 Validation'
+
+	annotation PBI_QueryGroupOrder = 5
+
 annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["DataFolder","DbServer","DbName","fnGetPgTable","stg_SalesInvoices"]
 
 ref cultureInfo en-US
 
