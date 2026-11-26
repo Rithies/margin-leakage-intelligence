@@ -1,0 +1,2 @@
+# Show the SQL layer as SQL on GitHub, not PLpgSQL
+*.sql linguist-language=SQL
