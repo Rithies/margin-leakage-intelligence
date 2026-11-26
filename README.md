@@ -85,10 +85,6 @@ Stores CSVs, QA / budget / rate-card Excel      ─┘   stg_ → fn → Dim / F
 - **RLS**: `tests/rls_row_counts.dax` checks that the sales reps' slices add back to the company total.
 - **Best Practice Analyzer**: `tests/bpa_rules.json` encodes the project's standards (descriptions, display folders, DIVIDE, hidden keys, single-direction one-to-many relationships, marked date table, no implicit measures). It runs in GitHub Actions on every model change (`.github/workflows/model-quality.yml`). 0 violations.
 
-## How this was built
-
-I planned this project and built it with Claude (Anthropic) as a mentor and pair programmer. Claude explained each concept, reviewed my work and, at my request, wrote much of the SQL, Power Query, model, DAX and report from the plan and the decisions recorded in `docs/decisions.md`. I ran every step, checked the outputs and can explain each design choice. The numbers were verified against an independent SQL implementation of the costing policy.
-
 ## How to run
 
 1. Install PostgreSQL, create database `conquer`, and run `sql/00_setup.sql` → `01_raw_landing.sql` → `02_typed_layer.sql` (set the data path at the top of 01).
