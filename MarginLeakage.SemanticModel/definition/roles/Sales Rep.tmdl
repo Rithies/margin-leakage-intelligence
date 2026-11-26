@@ -1,0 +1,7 @@
+/// Dynamic row-level security: a sales rep sees only the customers assigned to them (matched on sign-in e-mail).
+/// Filters every fact through Dim Customer. Budget is at segment level and stays visible.
+role 'Sales Rep'
+	modelPermission: read
+
+	tablePermission 'Dim Customer' = 'Dim Customer'[sales_rep_email] = USERPRINCIPALNAME ()
+

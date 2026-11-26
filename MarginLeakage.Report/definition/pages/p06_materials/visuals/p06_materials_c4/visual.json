@@ -1,0 +1,52 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p06_materials_c4",
+    "position":  {
+                     "x":  964,
+                     "y":  72,
+                     "z":  500,
+                     "height":  92,
+                     "width":  300,
+                     "tabOrder":  500
+                 },
+    "visual":  {
+                   "visualType":  "cardVisual",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Data":  {
+                                                                 "projections":  [
+                                                                                     {
+                                                                                         "field":  {
+                                                                                                       "Measure":  {
+                                                                                                                       "Expression":  {
+                                                                                                                                          "SourceRef":  {
+                                                                                                                                                            "Entity":  "_Measures"
+                                                                                                                                                        }
+                                                                                                                                      },
+                                                                                                                       "Property":  "Board Usage Overrun %"
+                                                                                                                   }
+                                                                                                   },
+                                                                                         "nativeQueryRef":  "Board Usage Overrun %",
+                                                                                         "queryRef":  "_Measures.Board Usage Overrun %"
+                                                                                     }
+                                                                                 ]
+                                                             }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Extra board kg over the estimate\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

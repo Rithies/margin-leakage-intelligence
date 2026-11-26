@@ -1,0 +1,35 @@
+{
+  "name": "Conquer Margin",
+  "dataColors": ["#0F5499", "#A3B8CC", "#D55E00", "#5B6B7B", "#56B4E9", "#E69F00", "#009E73", "#CC79A7"],
+  "good": "#0F5499",
+  "neutral": "#A3B8CC",
+  "bad": "#D55E00",
+  "maximum": "#D55E00",
+  "center": "#F2F2F2",
+  "minimum": "#0F5499",
+  "background": "#FFFFFF",
+  "foreground": "#1B2A3A",
+  "tableAccent": "#0F5499",
+  "textClasses": {
+    "title": { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#1B2A3A" },
+    "label": { "fontFace": "Segoe UI", "fontSize": 10, "color": "#3B4B5B" },
+    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 24, "color": "#1B2A3A" }
+  },
+  "visualStyles": {
+    "waterfallChart": {
+      "*": {
+        "sentimentColors": [{
+          "increaseFill": { "solid": { "color": "#0F5499" } },
+          "decreaseFill": { "solid": { "color": "#D55E00" } },
+          "totalFill": { "solid": { "color": "#5B6B7B" } }
+        }]
+      }
+    },
+    "*": {
+      "*": {
+        "border": [{ "show": true, "color": { "solid": { "color": "#E1E5EA" } }, "radius": 6 }],
+        "dropShadow": [{ "show": false }]
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p03_what_loses_hdr",
+    "position":  {
+                     "x":  16,
+                     "y":  8,
+                     "z":  100,
+                     "height":  56,
+                     "width":  1248,
+                     "tabOrder":  100
+                 },
+    "visual":  {
+                   "visualType":  "textbox",
+                   "objects":  {
+                                   "general":  [
+                                                   {
+                                                       "properties":  {
+                                                                          "paragraphs":  [
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "color":  "#1B2A3A",
+                                                                                                                                        "fontWeight":  "bold",
+                                                                                                                                        "fontSize":  "18pt"
+                                                                                                                                    },
+                                                                                                                      "value":  "What loses money: run length, rush, artwork, order size"
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             },
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "fontSize":  "10pt",
+                                                                                                                                        "color":  "#5B6B7B"
+                                                                                                                                    },
+                                                                                                                      "value":  "Quoted vs actual margin % by job attribute. Each chart controls for one driver at a time."
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             }
+                                                                                         ]
+                                                                      }
+                                                   }
+                                               ]
+                               }
+               }
+}

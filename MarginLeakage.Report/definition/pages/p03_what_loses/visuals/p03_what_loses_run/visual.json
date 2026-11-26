@@ -1,0 +1,141 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p03_what_loses_run",
+    "position":  {
+                     "x":  16,
+                     "y":  72,
+                     "z":  200,
+                     "height":  316,
+                     "width":  616,
+                     "tabOrder":  200
+                 },
+    "visual":  {
+                   "visualType":  "clusteredColumnChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Column":  {
+                                                                                                                          "Expression":  {
+                                                                                                                                             "SourceRef":  {
+                                                                                                                                                               "Entity":  "Dim Job"
+                                                                                                                                                           }
+                                                                                                                                         },
+                                                                                                                          "Property":  "Run Length Band"
+                                                                                                                      }
+                                                                                                       },
+                                                                                             "nativeQueryRef":  "Run Length Band",
+                                                                                             "queryRef":  "Dim Job.Run Length Band"
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Actual Margin %"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Actual Margin %",
+                                                                                      "queryRef":  "_Measures.Actual Margin %"
+                                                                                  },
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Quoted Margin %"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Quoted Margin %",
+                                                                                      "queryRef":  "_Measures.Quoted Margin %"
+                                                                                  }
+                                                                              ]
+                                                          }
+                                                },
+                                 "sortDefinition":  {
+                                                        "sort":  [
+                                                                     {
+                                                                         "field":  {
+                                                                                       "Column":  {
+                                                                                                      "Expression":  {
+                                                                                                                         "SourceRef":  {
+                                                                                                                                           "Entity":  "Dim Job"
+                                                                                                                                       }
+                                                                                                                     },
+                                                                                                      "Property":  "Run Length Band"
+                                                                                                  }
+                                                                                   },
+                                                                         "direction":  "Ascending"
+                                                                     }
+                                                                 ],
+                                                        "isDefaultSort":  true
+                                                    }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Measure":  {
+                                                                                                                                 "Expression":  {
+                                                                                                                                                    "SourceRef":  {
+                                                                                                                                                                      "Entity":  "_Measures"
+                                                                                                                                                                  }
+                                                                                                                                                },
+                                                                                                                                 "Property":  "Title Run Length"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "fontSize":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "13D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    },
+                                                                                       "bold":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Column chart: short runs are quoted at normal margins but earn almost nothing.\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

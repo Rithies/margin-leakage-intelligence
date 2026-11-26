@@ -1,0 +1,42 @@
+/// Machines from the costing department's rate card.
+table 'Dim Machine'
+
+	column machine_code
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: machine_code
+
+	column Machine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: machine_label
+
+	column 'Work Centre'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: work_centre
+
+	column 'Speed Unit'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: speed_unit
+
+	column 'Shifts Worked'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: shifts_worked
+
+	partition 'Dim Machine' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    Labelled = Table.AddColumn(stg_Machines, "machine_label", each [machine_code] & " " & [machine_name], type text),
+				    Result = Table.SelectColumns(Labelled, {"machine_code", "machine_label", "work_centre", "speed_unit", "shifts_worked"})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

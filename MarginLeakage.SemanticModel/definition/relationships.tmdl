@@ -1,0 +1,145 @@
+relationship a1f0c001-0000-4000-8000-000000000001
+	fromColumn: 'Fact Job PL'.job_no
+	toColumn: 'Dim Job'.job_no
+
+relationship a1f0c001-0000-4000-8000-000000000002
+	fromColumn: 'Fact Job PL'.line_code
+	toColumn: 'Dim PL Line'.line_code
+
+relationship a1f0c001-0000-4000-8000-000000000003
+	fromColumn: 'Fact Job PL'.customer_code
+	toColumn: 'Dim Customer'.customer_code
+
+relationship a1f0c001-0000-4000-8000-000000000004
+	fromColumn: 'Fact Job PL'.sku_code
+	toColumn: 'Dim SKU'.sku_code
+
+relationship a1f0c001-0000-4000-8000-000000000005
+	fromColumn: 'Fact Job PL'.estimator_code
+	toColumn: 'Dim Estimator'.estimator_code
+
+relationship a1f0c001-0000-4000-8000-000000000006
+	fromColumn: 'Fact Job PL'.invoice_date
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000007
+	isActive: false
+	fromColumn: 'Fact Job PL'.order_date
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000010
+	fromColumn: 'Fact Machine Log'.job_no
+	toColumn: 'Dim Job'.job_no
+
+relationship a1f0c001-0000-4000-8000-000000000011
+	fromColumn: 'Fact Machine Log'.machine_code
+	toColumn: 'Dim Machine'.machine_code
+
+relationship a1f0c001-0000-4000-8000-000000000012
+	fromColumn: 'Fact Machine Log'.customer_code
+	toColumn: 'Dim Customer'.customer_code
+
+relationship a1f0c001-0000-4000-8000-000000000013
+	fromColumn: 'Fact Machine Log'.log_date
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000020
+	fromColumn: 'Fact Job Machine'.job_no
+	toColumn: 'Dim Job'.job_no
+
+relationship a1f0c001-0000-4000-8000-000000000021
+	fromColumn: 'Fact Job Machine'.machine_code
+	toColumn: 'Dim Machine'.machine_code
+
+relationship a1f0c001-0000-4000-8000-000000000022
+	fromColumn: 'Fact Job Machine'.customer_code
+	toColumn: 'Dim Customer'.customer_code
+
+relationship a1f0c001-0000-4000-8000-000000000023
+	fromColumn: 'Fact Job Machine'.estimator_code
+	toColumn: 'Dim Estimator'.estimator_code
+
+relationship a1f0c001-0000-4000-8000-000000000024
+	fromColumn: 'Fact Job Machine'.invoice_date
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000030
+	fromColumn: 'Fact Board Variance'.job_no
+	toColumn: 'Dim Job'.job_no
+
+relationship a1f0c001-0000-4000-8000-000000000031
+	fromColumn: 'Fact Board Variance'.customer_code
+	toColumn: 'Dim Customer'.customer_code
+
+relationship a1f0c001-0000-4000-8000-000000000032
+	fromColumn: 'Fact Board Variance'.estimator_code
+	toColumn: 'Dim Estimator'.estimator_code
+
+relationship a1f0c001-0000-4000-8000-000000000033
+	fromColumn: 'Fact Board Variance'.sku_code
+	toColumn: 'Dim SKU'.sku_code
+
+relationship a1f0c001-0000-4000-8000-000000000034
+	fromColumn: 'Fact Board Variance'.invoice_date
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000040
+	fromColumn: 'Fact Rework'.job_no
+	toColumn: 'Dim Job'.job_no
+
+relationship a1f0c001-0000-4000-8000-000000000041
+	fromColumn: 'Fact Rework'.customer_code
+	toColumn: 'Dim Customer'.customer_code
+
+relationship a1f0c001-0000-4000-8000-000000000042
+	fromColumn: 'Fact Rework'.reason_code
+	toColumn: 'Dim Rework Reason'.reason_code
+
+relationship a1f0c001-0000-4000-8000-000000000043
+	fromColumn: 'Fact Rework'.machine_code
+	toColumn: 'Dim Machine'.machine_code
+
+relationship a1f0c001-0000-4000-8000-000000000044
+	fromColumn: 'Fact Rework'.reported_on
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000050
+	fromColumn: 'Fact Quote'.customer_code
+	toColumn: 'Dim Customer'.customer_code
+
+relationship a1f0c001-0000-4000-8000-000000000051
+	fromColumn: 'Fact Quote'.sku_code
+	toColumn: 'Dim SKU'.sku_code
+
+relationship a1f0c001-0000-4000-8000-000000000052
+	fromColumn: 'Fact Quote'.estimator_code
+	toColumn: 'Dim Estimator'.estimator_code
+
+relationship a1f0c001-0000-4000-8000-000000000053
+	fromColumn: 'Fact Quote'.quote_date
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000060
+	fromColumn: 'Fact Invoice Payment'.job_no
+	toColumn: 'Dim Job'.job_no
+
+relationship a1f0c001-0000-4000-8000-000000000061
+	fromColumn: 'Fact Invoice Payment'.customer_code
+	toColumn: 'Dim Customer'.customer_code
+
+relationship a1f0c001-0000-4000-8000-000000000062
+	fromColumn: 'Fact Invoice Payment'.invoice_date
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000070
+	fromColumn: 'Fact Budget'.segment
+	toColumn: 'Dim Segment'.Segment
+
+relationship a1f0c001-0000-4000-8000-000000000071
+	fromColumn: 'Fact Budget'.month_start
+	toColumn: 'Dim Date'.Date
+
+relationship a1f0c001-0000-4000-8000-000000000080
+	fromColumn: 'Dim Customer'.segment
+	toColumn: 'Dim Segment'.Segment
+

@@ -1,0 +1,52 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p09_data_quality_c2",
+    "position":  {
+                     "x":  332,
+                     "y":  72,
+                     "z":  300,
+                     "height":  92,
+                     "width":  300,
+                     "tabOrder":  300
+                 },
+    "visual":  {
+                   "visualType":  "cardVisual",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Data":  {
+                                                                 "projections":  [
+                                                                                     {
+                                                                                         "field":  {
+                                                                                                       "Measure":  {
+                                                                                                                       "Expression":  {
+                                                                                                                                          "SourceRef":  {
+                                                                                                                                                            "Entity":  "_Measures"
+                                                                                                                                                        }
+                                                                                                                                      },
+                                                                                                                       "Property":  "DQ Checks Passed"
+                                                                                                                   }
+                                                                                                   },
+                                                                                         "nativeQueryRef":  "DQ Checks Passed",
+                                                                                         "queryRef":  "_Measures.DQ Checks Passed"
+                                                                                     }
+                                                                                 ]
+                                                             }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Number of checks passed\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

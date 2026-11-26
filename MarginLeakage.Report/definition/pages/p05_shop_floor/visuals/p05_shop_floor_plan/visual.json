@@ -1,0 +1,141 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p05_shop_floor_plan",
+    "position":  {
+                     "x":  16,
+                     "y":  176,
+                     "z":  700,
+                     "height":  528,
+                     "width":  616,
+                     "tabOrder":  700
+                 },
+    "visual":  {
+                   "visualType":  "clusteredBarChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Column":  {
+                                                                                                                          "Expression":  {
+                                                                                                                                             "SourceRef":  {
+                                                                                                                                                               "Entity":  "Dim Machine"
+                                                                                                                                                           }
+                                                                                                                                         },
+                                                                                                                          "Property":  "Machine"
+                                                                                                                      }
+                                                                                                       },
+                                                                                             "nativeQueryRef":  "Machine",
+                                                                                             "queryRef":  "Dim Machine.Machine"
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Actual Job Hours"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Actual Job Hours",
+                                                                                      "queryRef":  "_Measures.Actual Job Hours"
+                                                                                  },
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Planned Hours"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Planned Hours",
+                                                                                      "queryRef":  "_Measures.Planned Hours"
+                                                                                  }
+                                                                              ]
+                                                          }
+                                                },
+                                 "sortDefinition":  {
+                                                        "sort":  [
+                                                                     {
+                                                                         "field":  {
+                                                                                       "Column":  {
+                                                                                                      "Expression":  {
+                                                                                                                         "SourceRef":  {
+                                                                                                                                           "Entity":  "Dim Machine"
+                                                                                                                                       }
+                                                                                                                     },
+                                                                                                      "Property":  "Machine"
+                                                                                                  }
+                                                                                   },
+                                                                         "direction":  "Ascending"
+                                                                     }
+                                                                 ],
+                                                        "isDefaultSort":  true
+                                                    }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Measure":  {
+                                                                                                                                 "Expression":  {
+                                                                                                                                                    "SourceRef":  {
+                                                                                                                                                                      "Entity":  "_Measures"
+                                                                                                                                                                  }
+                                                                                                                                                },
+                                                                                                                                 "Property":  "Title Shop Floor"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "fontSize":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "13D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    },
+                                                                                       "bold":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Bar chart of planned vs actual hours per machine; the old Komori press PR01 overruns most\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

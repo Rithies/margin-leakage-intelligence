@@ -1,0 +1,99 @@
+/// Calendar of whole Indian financial years (April to March), 1-Apr-2024 to 31-Mar-2027 (D-14). Marked as the date table.
+table 'Dim Date'
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Fiscal Year'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Fiscal Year
+		sortByColumn: 'FY Start Year'
+
+	column 'FY Start Year'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: FY Start Year
+
+	column 'Fiscal Quarter'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Fiscal Quarter
+
+	column 'Fiscal Month No'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Fiscal Month No
+
+	column 'Month Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Month Name
+		sortByColumn: 'Fiscal Month No'
+
+	column Month
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: 'Month Key'
+
+	column 'Month Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Month Key
+
+	column 'Month Start'
+		dataType: dateTime
+		formatString: mmm-yy
+		summarizeBy: none
+		sourceColumn: Month Start
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Is Data Period'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		summarizeBy: none
+		sourceColumn: Is Data Period
+
+	partition 'Dim Date' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    // Whole financial years so that YTD and prior-year comparisons always have a full calendar (D-14).
+				    StartDate = #date(2024, 4, 1),
+				    EndDate = #date(2027, 3, 31),
+				    DataCutOff = #date(2026, 9, 30),
+				    Dates = List.Dates(StartDate, Duration.Days(EndDate - StartDate) + 1, #duration(1, 0, 0, 0)),
+				    Base = Table.FromList(Dates, Splitter.SplitByNothing(), type table [Date = date]),
+				    // Indian FY: April to March. FY24-25 starts on 1-Apr-2024.
+				    FyStart = Table.AddColumn(Base, "FY Start Year", each if Date.Month([Date]) >= 4 then Date.Year([Date]) else Date.Year([Date]) - 1, Int64.Type),
+				    FiscalYear = Table.AddColumn(FyStart, "Fiscal Year", each "FY" & Text.End(Text.From([FY Start Year]), 2) & "-" & Text.End(Text.From([FY Start Year] + 1), 2), type text),
+				    // April = 1 ... March = 12.
+				    FiscalMonthNo = Table.AddColumn(FiscalYear, "Fiscal Month No", each Number.Mod(Date.Month([Date]) + 8, 12) + 1, Int64.Type),
+				    FiscalQuarter = Table.AddColumn(FiscalMonthNo, "Fiscal Quarter", each "Q" & Text.From(Number.IntegerDivide([Fiscal Month No] - 1, 3) + 1), type text),
+				    MonthName = Table.AddColumn(FiscalQuarter, "Month Name", each Date.ToText([Date], [Format = "MMM", Culture = "en-US"]), type text),
+				    Month = Table.AddColumn(MonthName, "Month", each Date.ToText([Date], [Format = "MMM-yy", Culture = "en-US"]), type text),
+				    MonthKey = Table.AddColumn(Month, "Month Key", each Date.Year([Date]) * 100 + Date.Month([Date]), Int64.Type),
+				    MonthStart = Table.AddColumn(MonthKey, "Month Start", each Date.StartOfMonth([Date]), type date),
+				    // Months after the data cut-off exist only to complete FY26-27; charts filter them out.
+				    IsDataPeriod = Table.AddColumn(MonthStart, "Is Data Period", each [Date] <= DataCutOff, type logical)
+				in
+				    IsDataPeriod
+
+	annotation PBI_ResultType = Table
+

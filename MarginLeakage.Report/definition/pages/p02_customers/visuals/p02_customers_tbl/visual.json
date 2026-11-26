@@ -1,0 +1,188 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p02_customers_tbl",
+    "position":  {
+                     "x":  472,
+                     "y":  72,
+                     "z":  300,
+                     "height":  632,
+                     "width":  792,
+                     "tabOrder":  300
+                 },
+    "visual":  {
+                   "visualType":  "tableEx",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Values":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Dim Customer"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Customer Label"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Customer Label",
+                                                                                           "queryRef":  "Dim Customer.Customer Label"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Dim Customer"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Account Type"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Account Type",
+                                                                                           "queryRef":  "Dim Customer.Account Type"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Jobs"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Jobs",
+                                                                                           "queryRef":  "_Measures.Jobs"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Net Revenue"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Net Revenue",
+                                                                                           "queryRef":  "_Measures.Net Revenue"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Quoted Margin %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Quoted Margin %",
+                                                                                           "queryRef":  "_Measures.Quoted Margin %"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Actual Margin %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Actual Margin %",
+                                                                                           "queryRef":  "_Measures.Actual Margin %"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Margin Leak"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Margin Leak",
+                                                                                           "queryRef":  "_Measures.Margin Leak"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Contribution per Press Hour"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Contribution per Press Hour",
+                                                                                           "queryRef":  "_Measures.Contribution per Press Hour"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                },
+                                 "sortDefinition":  {
+                                                        "sort":  [
+                                                                     {
+                                                                         "field":  {
+                                                                                       "Measure":  {
+                                                                                                       "Expression":  {
+                                                                                                                          "SourceRef":  {
+                                                                                                                                            "Entity":  "_Measures"
+                                                                                                                                        }
+                                                                                                                      },
+                                                                                                       "Property":  "Actual Margin %"
+                                                                                                   }
+                                                                                   },
+                                                                         "direction":  "Ascending"
+                                                                     }
+                                                                 ],
+                                                        "isDefaultSort":  true
+                                                    }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Customer P\u0026L: sorted by actual margin, worst first\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Table of customer revenue, quoted and actual margin, margin leak and contribution per press hour\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

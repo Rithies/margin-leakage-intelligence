@@ -1,0 +1,52 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p04_estimating_c4",
+    "position":  {
+                     "x":  964,
+                     "y":  72,
+                     "z":  500,
+                     "height":  92,
+                     "width":  300,
+                     "tabOrder":  500
+                 },
+    "visual":  {
+                   "visualType":  "cardVisual",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Data":  {
+                                                                 "projections":  [
+                                                                                     {
+                                                                                         "field":  {
+                                                                                                       "Measure":  {
+                                                                                                                       "Expression":  {
+                                                                                                                                          "SourceRef":  {
+                                                                                                                                                            "Entity":  "_Measures"
+                                                                                                                                                        }
+                                                                                                                                      },
+                                                                                                                       "Property":  "Hours Overrun %"
+                                                                                                                   }
+                                                                                                   },
+                                                                                         "nativeQueryRef":  "Hours Overrun %",
+                                                                                         "queryRef":  "_Measures.Hours Overrun %"
+                                                                                     }
+                                                                                 ]
+                                                             }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Actual machine hours over planned\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

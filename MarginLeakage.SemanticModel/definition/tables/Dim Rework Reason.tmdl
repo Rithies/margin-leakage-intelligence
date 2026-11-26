@@ -1,0 +1,36 @@
+/// Rework reasons, with who caused them (internal or customer).
+table 'Dim Rework Reason'
+
+	column reason_code
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: reason_code
+
+	column 'Rework Reason'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: reason
+
+	column Department
+		dataType: string
+		summarizeBy: none
+		sourceColumn: department
+
+	column Responsibility
+		dataType: string
+		summarizeBy: none
+		sourceColumn: responsibility
+
+	partition 'Dim Rework Reason' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    Result = Table.SelectColumns(stg_ReworkReasons, {"reason_code", "reason", "department", "responsibility"})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

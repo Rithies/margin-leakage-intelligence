@@ -1,0 +1,118 @@
+/// One row per production job, with the attributes used to explain margin: run length, rush, repeat, artwork changes and delivery.
+table 'Dim Job'
+
+	column job_no
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: job_no
+
+	column 'Job No'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: job_label
+
+	column 'Order Date'
+		dataType: dateTime
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Order Qty'
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: order_qty
+
+	column 'Run Length Band'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: run_length_band
+
+	column 'Rush Order'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: rush_label
+
+	column 'Order Type'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: order_type
+
+	column Artwork
+		dataType: string
+		summarizeBy: none
+		sourceColumn: artwork_label
+
+	column Delivery
+		dataType: string
+		summarizeBy: none
+		sourceColumn: delivery
+
+	column 'Order vs Quote Qty'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: qty_vs_quote
+
+	column 'Quote ID'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: quote_id
+
+	column 'Quote Link'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: quote_link
+
+	column 'Invoice No'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: invoice_no
+
+	partition 'Dim Job' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    Jobs = stg_JobBase,
+				    Invoices = Table.SelectColumns(stg_InvoicesInr, {"job_no", "invoice_no"}),
+				    WithInvoice = Table.ExpandTableColumn(Table.NestedJoin(Jobs, {"job_no"}, Invoices, {"job_no"}, "Inv", JoinKind.LeftOuter), "Inv", {"invoice_no"}),
+				    // Bands chosen around the make-ready break-even: below 25k cartons make-ready dominates the job's machine time.
+				    RunBand = Table.AddColumn(
+				        WithInvoice,
+				        "run_length_band",
+				        each if [order_qty] < 10000 then "1. Under 10k"
+				            else if [order_qty] < 25000 then "2. 10k-25k"
+				            else if [order_qty] < 50000 then "3. 25k-50k"
+				            else "4. 50k and over",
+				        type text
+				    ),
+				    Rush = Table.AddColumn(RunBand, "rush_label", each if [rush_order] = true then "Rush" else "Standard", type text),
+				    OrderType = Table.AddColumn(Rush, "order_type", each if [repeat_order] = true then "Repeat" else "New", type text),
+				    Artwork = Table.AddColumn(OrderType, "artwork_label", each if [artwork_revised] = true then "Artwork revised" else "No artwork change", type text),
+				    Delivery = Table.AddColumn(Artwork, "delivery", each if [completed_on] = null then "Not recorded" else if [completed_on] <= [due_date] then "On time" else "Late", type text),
+				    // Repeat orders reuse an older quote scaled to the new quantity (policy rule 1). Make-ready does not scale,
+				    // so an order much smaller than its quote is under-estimated by construction.
+				    QtyVsQuote = Table.AddColumn(
+				        Delivery,
+				        "qty_vs_quote",
+				        each if [qty_ratio] < 0.8 then "1. Smaller than quoted" else if [qty_ratio] > 1.25 then "3. Larger than quoted" else "2. About as quoted",
+				        type text
+				    ),
+				    Label = Table.AddColumn(QtyVsQuote, "job_label", each [job_no], type text),
+				    Result = Table.SelectColumns(
+				        Label,
+				        {
+				            "job_no", "job_label", "order_date", "order_qty", "run_length_band", "rush_label", "order_type", "artwork_label",
+				            "delivery", "qty_vs_quote", "quote_id", "quote_link", "invoice_no"
+				        }
+				    ),
+				    Typed = Table.TransformColumnTypes(Result, {{"invoice_no", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

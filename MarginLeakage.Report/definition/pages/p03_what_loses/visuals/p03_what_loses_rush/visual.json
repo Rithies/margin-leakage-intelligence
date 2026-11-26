@@ -1,0 +1,104 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p03_what_loses_rush",
+    "position":  {
+                     "x":  16,
+                     "y":  400,
+                     "z":  400,
+                     "height":  304,
+                     "width":  616,
+                     "tabOrder":  400
+                 },
+    "visual":  {
+                   "visualType":  "clusteredColumnChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Column":  {
+                                                                                                                          "Expression":  {
+                                                                                                                                             "SourceRef":  {
+                                                                                                                                                               "Entity":  "Dim Job"
+                                                                                                                                                           }
+                                                                                                                                         },
+                                                                                                                          "Property":  "Rush Order"
+                                                                                                                      }
+                                                                                                       },
+                                                                                             "nativeQueryRef":  "Rush Order",
+                                                                                             "queryRef":  "Dim Job.Rush Order"
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Actual Margin %"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Actual Margin %",
+                                                                                      "queryRef":  "_Measures.Actual Margin %"
+                                                                                  },
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Quoted Margin %"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Quoted Margin %",
+                                                                                      "queryRef":  "_Measures.Quoted Margin %"
+                                                                                  }
+                                                                              ]
+                                                          }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Rush jobs earn 1% after quoting 17%: rush is not priced in\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Column chart of quoted and actual margin for rush vs standard jobs\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

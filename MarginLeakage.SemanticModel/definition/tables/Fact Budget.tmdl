@@ -1,0 +1,50 @@
+/// Grain: segment x month. The board-approved annual operating plan in INR.
+table 'Fact Budget'
+
+	column segment
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: segment
+
+	column month_start
+		dataType: dateTime
+		isHidden
+		formatString: mmm-yy
+		summarizeBy: none
+		sourceColumn: month_start
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column budget_revenue_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: budget_revenue_inr
+
+	column budget_gross_margin_pct
+		dataType: double
+		isHidden
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: budget_gross_margin_pct
+
+	column budget_gross_margin_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: budget_gross_margin_inr
+
+	partition 'Fact Budget' = m
+		mode: import
+		queryGroup: '04 Facts'
+		source =
+				let
+				    Result = stg_Budget
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

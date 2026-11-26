@@ -1,0 +1,52 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p04_estimating_c1",
+    "position":  {
+                     "x":  16,
+                     "y":  72,
+                     "z":  200,
+                     "height":  92,
+                     "width":  300,
+                     "tabOrder":  200
+                 },
+    "visual":  {
+                   "visualType":  "cardVisual",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Data":  {
+                                                                 "projections":  [
+                                                                                     {
+                                                                                         "field":  {
+                                                                                                       "Measure":  {
+                                                                                                                       "Expression":  {
+                                                                                                                                          "SourceRef":  {
+                                                                                                                                                            "Entity":  "_Measures"
+                                                                                                                                                        }
+                                                                                                                                      },
+                                                                                                                       "Property":  "Win Rate"
+                                                                                                                   }
+                                                                                                   },
+                                                                                         "nativeQueryRef":  "Win Rate",
+                                                                                         "queryRef":  "_Measures.Win Rate"
+                                                                                     }
+                                                                                 ]
+                                                             }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Headline win rate, inflated by re-quotes\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

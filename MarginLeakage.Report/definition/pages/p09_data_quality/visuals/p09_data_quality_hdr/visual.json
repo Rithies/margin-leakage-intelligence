@@ -1,0 +1,48 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p09_data_quality_hdr",
+    "position":  {
+                     "x":  16,
+                     "y":  8,
+                     "z":  100,
+                     "height":  56,
+                     "width":  1248,
+                     "tabOrder":  100
+                 },
+    "visual":  {
+                   "visualType":  "textbox",
+                   "objects":  {
+                                   "general":  [
+                                                   {
+                                                       "properties":  {
+                                                                          "paragraphs":  [
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "color":  "#1B2A3A",
+                                                                                                                                        "fontWeight":  "bold",
+                                                                                                                                        "fontSize":  "18pt"
+                                                                                                                                    },
+                                                                                                                      "value":  "Data quality and reconciliation: can these numbers be trusted?"
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             },
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "fontSize":  "10pt",
+                                                                                                                                        "color":  "#5B6B7B"
+                                                                                                                                    },
+                                                                                                                      "value":  "Every Power Query validation check (0 failures = pass) and the control totals that tie to the SQL reconciliation (sql/04_reconciliation.sql)."
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             }
+                                                                                         ]
+                                                                      }
+                                                   }
+                                               ]
+                               }
+               }
+}

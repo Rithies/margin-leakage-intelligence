@@ -1,0 +1,221 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p08_cost_to_serve_tbl",
+    "position":  {
+                     "x":  16,
+                     "y":  72,
+                     "z":  300,
+                     "height":  340,
+                     "width":  1020,
+                     "tabOrder":  300
+                 },
+    "visual":  {
+                   "visualType":  "tableEx",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Values":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Dim Customer"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Customer Label"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Customer Label",
+                                                                                           "queryRef":  "Dim Customer.Customer Label"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Dim Customer"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Payment Terms (days)"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Payment Terms (days)",
+                                                                                           "queryRef":  "Dim Customer.Payment Terms (days)"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Avg Days to Pay"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Avg Days to Pay",
+                                                                                           "queryRef":  "_Measures.Avg Days to Pay"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Avg Days Beyond Terms"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Avg Days Beyond Terms",
+                                                                                           "queryRef":  "_Measures.Avg Days Beyond Terms"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Cost of Capital"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Cost of Capital",
+                                                                                           "queryRef":  "_Measures.Cost of Capital"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Freight Overrun"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Freight Overrun",
+                                                                                           "queryRef":  "_Measures.Freight Overrun"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Customer-Caused Rework Cost"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Customer-Caused Rework Cost",
+                                                                                           "queryRef":  "_Measures.Customer-Caused Rework Cost"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Actual Margin %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Actual Margin %",
+                                                                                           "queryRef":  "_Measures.Actual Margin %"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Margin after Cost of Capital %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Margin after Cost of Capital %",
+                                                                                           "queryRef":  "_Measures.Margin after Cost of Capital %"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                },
+                                 "sortDefinition":  {
+                                                        "sort":  [
+                                                                     {
+                                                                         "field":  {
+                                                                                       "Measure":  {
+                                                                                                       "Expression":  {
+                                                                                                                          "SourceRef":  {
+                                                                                                                                            "Entity":  "_Measures"
+                                                                                                                                        }
+                                                                                                                      },
+                                                                                                       "Property":  "Cost of Capital"
+                                                                                                   }
+                                                                                   },
+                                                                         "direction":  "Descending"
+                                                                     }
+                                                                 ],
+                                                        "isDefaultSort":  true
+                                                    }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Measure":  {
+                                                                                                                                 "Expression":  {
+                                                                                                                                                    "SourceRef":  {
+                                                                                                                                                                      "Entity":  "_Measures"
+                                                                                                                                                                  }
+                                                                                                                                                },
+                                                                                                                                 "Property":  "Title Cost to Serve"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "fontSize":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "13D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    },
+                                                                                       "bold":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Table of payment days, financing cost, freight overrun and customer-caused rework by customer\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

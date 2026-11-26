@@ -1,0 +1,31 @@
+// Control-total tests. Run in DAX Studio against the open model (or with tests/run_dax_tests.ps1).
+// Every row must return PASS. Expected values come from sql/04_reconciliation.sql (independent of Power Query)
+// and from an independent T-SQL replica of the README costing policy.
+// Tolerance: Rs 1 for revenue (split-payment paise rounding); Rs 500 for estimated cost (8 elements each rounded
+// to whole rupees, summed over 7,345 jobs, D-11).
+
+DEFINE
+    VAR Tests =
+        {
+            ( "Jobs = invoices", [Jobs], 7345, 0 ),
+            ( "Gross revenue", [Gross Revenue], 1358176226.34, 1 ),
+            ( "Credit notes", [Credit Notes], 3347530.07, 1 ),
+            ( "Net revenue", [Net Revenue], 1354828696.27, 1 ),
+            ( "Quoted revenue", [Quoted Revenue], 1348604773.33, 1 ),
+            ( "Estimated cost", [Estimated Cost], 1085220960, 500 ),
+            ( "Actual cost", [Actual Cost], 1220839265.15, 1 ),
+            ( "Unabsorbed machine cost", [Unabsorbed Machine Cost], 2533482.40, 1 ),
+            ( "Unabsorbed machine hours", [Unabsorbed Hours], 572.283, 0.01 ),
+            ( "Bridge closes", [Bridge Check], 0, 0 ),
+            ( "Data-quality failures", [DQ Failures], 0, 0 )
+        }
+
+EVALUATE
+SELECTCOLUMNS (
+    Tests,
+    "Test", [Value1],
+    "Model", [Value2],
+    "Expected", [Value3],
+    "Difference", [Value2] - [Value3],
+    "Result", IF ( ABS ( [Value2] - [Value3] ) <= [Value4], "PASS", "FAIL" )
+)

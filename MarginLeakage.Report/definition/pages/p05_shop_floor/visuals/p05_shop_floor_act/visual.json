@@ -1,0 +1,108 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p05_shop_floor_act",
+    "position":  {
+                     "x":  648,
+                     "y":  176,
+                     "z":  800,
+                     "height":  256,
+                     "width":  616,
+                     "tabOrder":  800
+                 },
+    "visual":  {
+                   "visualType":  "barChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Machine Hours"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Machine Hours",
+                                                                                      "queryRef":  "_Measures.Machine Hours"
+                                                                                  }
+                                                                              ]
+                                                          },
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Column":  {
+                                                                                                                          "Expression":  {
+                                                                                                                                             "SourceRef":  {
+                                                                                                                                                               "Entity":  "Dim Machine"
+                                                                                                                                                           }
+                                                                                                                                         },
+                                                                                                                          "Property":  "Machine"
+                                                                                                                      }
+                                                                                                       },
+                                                                                             "nativeQueryRef":  "Machine",
+                                                                                             "queryRef":  "Dim Machine.Machine"
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Series":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Fact Machine Log"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Activity"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Activity",
+                                                                                           "queryRef":  "Fact Machine Log.Activity"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Machine hours by activity: make-ready is a third of all time\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Stacked bar chart of machine hours by activity per machine\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

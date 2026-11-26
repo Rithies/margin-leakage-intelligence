@@ -1,6 +1,7 @@
 model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
 	sourceQueryCulture: en-IN
 	valueFilterBehavior: independent
 	dataAccessOptions
@@ -33,9 +34,33 @@ queryGroup '05 Validation'
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","CalcGroup"]
 
-annotation PBI_QueryOrder = ["DataFolder","DbServer","DbName","fnGetPgTable","stg_SalesInvoices"]
+annotation PBI_QueryOrder = ["RepoFolder","DataFolder","DbServer","DbName","LabourRateInrPerHour","OverheadRate","fnGetPgTable","fnMapCustomerCode","fnStandardiseText","fnNormaliseJobNo","fnPromoteHeaderRow","fnAddEffectiveValue","fnCountOrphans","fnConformMesV1","fnConformMesV2","stg_SalesInvoices","stg_Jobs","stg_Quotes","stg_QuoteEstimates","stg_QuoteMachineHours","stg_Dispatches","stg_CreditNotes","stg_CustomerReceipts","stg_FxRatesUsdInr","stg_Customers","stg_Skus","stg_SalesReps","stg_Estimators","stg_Operators","stg_BoardGrades","stg_BoardPriceHistory","stg_InkPriceList","stg_PlatePriceList","stg_ReworkReasons","stg_CustomerCodeMap","stg_SegmentList","stg_InkDescriptionMap","stg_CostElements","stg_Machines","stg_MachineRates","stg_CartonStyleFactors","stg_MachineLogFiles","stg_MachineLog","stg_BoardIssues","stg_InkIssues","stg_InkIssuesCosted","stg_PlateLog","stg_PlateLogCosted","stg_DieRegister","stg_ReworkLog","stg_ReworkLogCosted","stg_Budget","stg_FxDaily","stg_JobQuoteLink","stg_QuoteEstimateLines","stg_JobsMapped","stg_QuotesInr","stg_InvoicesInr","stg_CreditNotesInr","stg_JobBase","stg_JobEstimateLines","stg_JobActualLines","Dim Date","Dim Customer","Dim Segment","Dim SKU","Dim Job","Dim Estimator","Dim Machine","Dim Rework Reason","Dim PL Line","Fact Job PL","Fact Machine Log","Fact Job Machine","Fact Board Variance","Fact Rework","Fact Quote","Fact Invoice Payment","Fact Budget","val_CustomerMap_RowsAndTotals","val_DimCustomer","val_MachineLog","val_BoardIssues","val_InkIssues","val_PlatesAndDies","val_ReworkLog","val_Budget","val_JobQuoteLink","val_QuoteEstimateLines","val_FxDaily","val_FactJobPL","DQ Checks","_Measures"]
+
+ref table _Measures
+ref table 'Dim Date'
+ref table 'Dim Customer'
+ref table 'Dim Segment'
+ref table 'Dim SKU'
+ref table 'Dim Job'
+ref table 'Dim Estimator'
+ref table 'Dim Machine'
+ref table 'Dim Rework Reason'
+ref table 'Dim PL Line'
+ref table 'Fact Job PL'
+ref table 'Fact Machine Log'
+ref table 'Fact Job Machine'
+ref table 'Fact Board Variance'
+ref table 'Fact Rework'
+ref table 'Fact Quote'
+ref table 'Fact Invoice Payment'
+ref table 'Fact Budget'
+ref table 'DQ Checks'
+ref table 'Time Intelligence'
+ref table 'Cost of Capital Rate'
+
+ref role 'Sales Rep'
 
 ref cultureInfo en-US
 

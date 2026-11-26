@@ -1,0 +1,143 @@
+/// Grain: one row per job x machine. Planned hours = the quote's machine hours scaled by order qty / quote qty;
+/// actual hours split by activity from the MES.
+table 'Fact Job Machine'
+
+	column job_no
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: job_no
+
+	column machine_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: machine_code
+
+	column customer_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_code
+
+	column estimator_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: estimator_code
+
+	column invoice_date
+		dataType: dateTime
+		isHidden
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column planned_hrs
+		dataType: double
+		isHidden
+		formatString: #,0.0
+		summarizeBy: sum
+		sourceColumn: planned_hrs
+
+	column actual_hrs
+		dataType: double
+		isHidden
+		formatString: #,0.0
+		summarizeBy: sum
+		sourceColumn: actual_hrs
+
+	column makeready_hrs
+		dataType: double
+		isHidden
+		formatString: #,0.0
+		summarizeBy: sum
+		sourceColumn: makeready_hrs
+
+	column run_hrs
+		dataType: double
+		isHidden
+		formatString: #,0.0
+		summarizeBy: sum
+		sourceColumn: run_hrs
+
+	column stoppage_hrs
+		dataType: double
+		isHidden
+		formatString: #,0.0
+		summarizeBy: sum
+		sourceColumn: stoppage_hrs
+
+	column washup_hrs
+		dataType: double
+		isHidden
+		formatString: #,0.0
+		summarizeBy: sum
+		sourceColumn: washup_hrs
+
+	column actual_cost_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: actual_cost_inr
+
+	partition 'Fact Job Machine' = m
+		mode: import
+		queryGroup: '04 Facts'
+		source =
+				let
+				    Jobs = Table.SelectColumns(stg_JobBase, {"job_no", "quote_id", "qty_ratio", "customer_code", "estimator_code"}),
+				    PlannedJoined = Table.ExpandTableColumn(
+				        Table.NestedJoin(Jobs, {"quote_id"}, stg_QuoteMachineHours, {"quote_id"}, "H", JoinKind.Inner), "H", {"machine_code", "est_hours"}
+				    ),
+				    Planned = Table.SelectColumns(Table.AddColumn(PlannedJoined, "planned_hrs", each [est_hours] * [qty_ratio], type number), {"job_no", "machine_code", "planned_hrs"}),
+
+				    Logged = Table.SelectRows(stg_MachineLog, each not [is_unabsorbed]),
+				    HoursFor = (rows as table, activity as text) as number => List.Sum(Table.SelectRows(rows, each [activity] = activity)[duration_hrs]) ?? 0,
+				    Actual = Table.Group(
+				        Logged,
+				        {"job_no", "machine_code"},
+				        {
+				            {"actual_hrs", each List.Sum([duration_hrs]), type number},
+				            {"makeready_hrs", each HoursFor(_, "Make-ready"), type number},
+				            {"run_hrs", each HoursFor(_, "Run"), type number},
+				            {"stoppage_hrs", each HoursFor(_, "Stoppage"), type number},
+				            {"washup_hrs", each HoursFor(_, "Wash-up"), type number},
+				            {"actual_cost_inr", each List.Sum([machine_cost_inr]), type number}
+				        }
+				    ),
+
+				    // Stack planned and actual, then sum: keeps machines that were planned but not used, and used but not planned.
+				    Stacked = Table.Combine({Planned, Actual}),
+				    Sum = (values as list) as number => List.Sum(values) ?? 0,
+				    Grouped = Table.Group(
+				        Stacked,
+				        {"job_no", "machine_code"},
+				        {
+				            {"planned_hrs", each Sum([planned_hrs]), type number},
+				            {"actual_hrs", each Sum([actual_hrs]), type number},
+				            {"makeready_hrs", each Sum([makeready_hrs]), type number},
+				            {"run_hrs", each Sum([run_hrs]), type number},
+				            {"stoppage_hrs", each Sum([stoppage_hrs]), type number},
+				            {"washup_hrs", each Sum([washup_hrs]), type number},
+				            {"actual_cost_inr", each Sum([actual_cost_inr]), type number}
+				        }
+				    ),
+				    Invoices = Table.SelectColumns(stg_InvoicesInr, {"job_no", "invoice_date"}),
+				    WithJob = Table.ExpandTableColumn(Table.NestedJoin(Grouped, {"job_no"}, Jobs, {"job_no"}, "J", JoinKind.LeftOuter), "J", {"customer_code", "estimator_code"}),
+				    WithDate = Table.ExpandTableColumn(Table.NestedJoin(WithJob, {"job_no"}, Invoices, {"job_no"}, "I", JoinKind.LeftOuter), "I", {"invoice_date"}),
+				    Result = Table.TransformColumnTypes(
+				        Table.SelectColumns(
+				            WithDate,
+				            {"job_no", "machine_code", "customer_code", "estimator_code", "invoice_date", "planned_hrs", "actual_hrs", "makeready_hrs", "run_hrs", "stoppage_hrs", "washup_hrs", "actual_cost_inr"}
+				        ),
+				        {{"machine_code", type text}, {"customer_code", type text}, {"estimator_code", type text}, {"invoice_date", type date}}
+				    )
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,95 @@
+/// One row per carton design (SKU): style, board, colours and finishing.
+table 'Dim SKU'
+
+	column sku_code
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: sku_code
+
+	column SKU
+		dataType: string
+		summarizeBy: none
+		sourceColumn: sku_label
+
+	column 'Carton Style'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: style_name
+
+	column 'Board Grade'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: board_grade
+
+	column GSM
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: gsm
+
+	column Ups
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: ups
+
+	column Colours
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: total_colours
+
+	column Coating
+		dataType: string
+		summarizeBy: none
+		sourceColumn: coating
+
+	column Finishing
+		dataType: string
+		summarizeBy: none
+		sourceColumn: finishing
+
+	column Status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: status
+
+	partition 'Dim SKU' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    Skus = stg_Skus,
+				    Styles = Table.SelectColumns(stg_CartonStyleFactors, {"carton_style", "style_name"}),
+				    WithStyle = Table.ExpandTableColumn(Table.NestedJoin(Skus, {"carton_style"}, Styles, {"carton_style"}, "S", JoinKind.LeftOuter), "S", {"style_name"}),
+				    WithLabel = Table.AddColumn(WithStyle, "sku_label", each [sku_code] & " " & [description], type text),
+				    // Finishing summarised into one readable label for slicing.
+				    WithFinishing = Table.AddColumn(
+				        WithLabel,
+				        "finishing",
+				        each
+				            let
+				                Parts = List.Select(
+				                    {
+				                        if [lamination] = true then "Lamination" else null,
+				                        if [hot_foil] = true then "Foil" else null,
+				                        if [emboss] = true then "Emboss" else null,
+				                        if [window_patch] = true then "Window" else null
+				                    },
+				                    each _ <> null
+				                )
+				            in
+				                if List.IsEmpty(Parts) then "None" else Text.Combine(Parts, " + "),
+				        type text
+				    ),
+				    Result = Table.TransformColumnTypes(
+				        Table.SelectColumns(WithFinishing, {"sku_code", "sku_label", "style_name", "board_grade", "gsm", "ups", "total_colours", "coating", "finishing", "status"}),
+				        {{"style_name", type text}}
+				    )
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,142 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p04_estimating_tbl",
+    "position":  {
+                     "x":  648,
+                     "y":  176,
+                     "z":  700,
+                     "height":  260,
+                     "width":  616,
+                     "tabOrder":  700
+                 },
+    "visual":  {
+                   "visualType":  "tableEx",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Values":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Dim Estimator"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Estimator"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Estimator",
+                                                                                           "queryRef":  "Dim Estimator.Estimator"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Jobs"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Jobs",
+                                                                                           "queryRef":  "_Measures.Jobs"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Quoted Margin %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Quoted Margin %",
+                                                                                           "queryRef":  "_Measures.Quoted Margin %"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Actual Margin %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Actual Margin %",
+                                                                                           "queryRef":  "_Measures.Actual Margin %"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Cost Overrun %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Cost Overrun %",
+                                                                                           "queryRef":  "_Measures.Cost Overrun %"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Hours Overrun %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Hours Overrun %",
+                                                                                           "queryRef":  "_Measures.Hours Overrun %"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Estimator scorecard\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Table: jobs, quoted and actual margin, cost and hours overrun per estimator\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

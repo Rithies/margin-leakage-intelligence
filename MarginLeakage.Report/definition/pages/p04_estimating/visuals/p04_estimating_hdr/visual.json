@@ -1,0 +1,48 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p04_estimating_hdr",
+    "position":  {
+                     "x":  16,
+                     "y":  8,
+                     "z":  100,
+                     "height":  56,
+                     "width":  1248,
+                     "tabOrder":  100
+                 },
+    "visual":  {
+                   "visualType":  "textbox",
+                   "objects":  {
+                                   "general":  [
+                                                   {
+                                                       "properties":  {
+                                                                          "paragraphs":  [
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "color":  "#1B2A3A",
+                                                                                                                                        "fontWeight":  "bold",
+                                                                                                                                        "fontSize":  "18pt"
+                                                                                                                                    },
+                                                                                                                      "value":  "Estimating: are we quoting the work we actually do?"
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             },
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "fontSize":  "10pt",
+                                                                                                                                        "color":  "#5B6B7B"
+                                                                                                                                    },
+                                                                                                                      "value":  "Cost overrun and machine-hour overrun by estimator; win rates with re-quotes of repeat orders separated out."
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             }
+                                                                                         ]
+                                                                      }
+                                                   }
+                                               ]
+                               }
+               }
+}

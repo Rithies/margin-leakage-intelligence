@@ -1,0 +1,45 @@
+/// Time intelligence for the Indian financial year (April to March). Works on any measure.
+/// Year-to-date stops at the data cut-off, so a partial year is always compared with the same months a year earlier (D-15).
+/// For % measures, YoY is a difference in percentage points.
+table 'Time Intelligence'
+
+	calculationGroup
+		precedence: 10
+
+		calculationItem Current = SELECTEDMEASURE ()
+
+		calculationItem FYTD =
+				VAR LastDataDate = CALCULATE ( MAX ( 'Dim Date'[Date] ), 'Dim Date'[Is Data Period] = TRUE () )
+				VAR YtdDates = FILTER ( DATESYTD ( 'Dim Date'[Date], "3/31" ), 'Dim Date'[Date] <= LastDataDate )
+				RETURN
+				    CALCULATE ( SELECTEDMEASURE (), YtdDates )
+
+		calculationItem 'PY FYTD' =
+				VAR LastDataDate = CALCULATE ( MAX ( 'Dim Date'[Date] ), 'Dim Date'[Is Data Period] = TRUE () )
+				VAR YtdDates = FILTER ( DATESYTD ( 'Dim Date'[Date], "3/31" ), 'Dim Date'[Date] <= LastDataDate )
+				RETURN
+				    CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( YtdDates ) )
+
+		calculationItem 'YoY FYTD' =
+				VAR LastDataDate = CALCULATE ( MAX ( 'Dim Date'[Date] ), 'Dim Date'[Is Data Period] = TRUE () )
+				VAR YtdDates = FILTER ( DATESYTD ( 'Dim Date'[Date], "3/31" ), 'Dim Date'[Date] <= LastDataDate )
+				VAR ThisYear = CALCULATE ( SELECTEDMEASURE (), YtdDates )
+				VAR LastYear = CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( YtdDates ) )
+				RETURN
+				    IF ( NOT ISBLANK ( LastYear ), ThisYear - LastYear )
+
+	column 'Time Calculation'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+	partition 'Time Intelligence' = calculationGroup
+

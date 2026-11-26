@@ -1,0 +1,9 @@
+element_code,element_name,sort_order,estimate_column
+BOARD,Board,1,est_board_cost
+INK,Ink,2,est_ink_cost
+PLATES,Plates,3,est_plate_cost
+DIES,Dies,4,est_die_cost
+MACHINE,Machine time,5,est_conversion_cost
+REWORK,Rework,6,est_rework_allowance
+FREIGHT,Freight,7,est_freight_cost
+OVERHEAD,Overhead,8,est_overhead

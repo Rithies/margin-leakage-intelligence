@@ -1,7 +1,15 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
-  "pageOrder": [
-    "1b1af46aa03442c835ea"
-  ],
-  "activePageName": "1b1af46aa03442c835ea"
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+    "pageOrder":  [
+                      "p01_executive",
+                      "p02_customers",
+                      "p03_what_loses",
+                      "p04_estimating",
+                      "p05_shop_floor",
+                      "p06_materials",
+                      "p07_plan",
+                      "p08_cost_to_serve",
+                      "p09_data_quality"
+                  ],
+    "activePageName":  "p01_executive"
 }

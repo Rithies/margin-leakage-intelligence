@@ -1,0 +1,50 @@
+/// Every validation check from the 05 Validation group in one long table (area, check, failures). 0 failures = pass.
+/// Feeds the data-quality page, so the report proves its own inputs.
+table 'DQ Checks'
+
+	column Area
+		dataType: string
+		summarizeBy: none
+		sourceColumn: area
+
+	column Check
+		dataType: string
+		summarizeBy: none
+		sourceColumn: check
+
+	column failures
+		dataType: int64
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: failures
+
+	partition 'DQ Checks' = m
+		mode: import
+		queryGroup: '05 Validation'
+		source =
+				let
+				    // The two customer checks were built wide (one column per check); turn them long to match the rest.
+				    Long = (wide as table, area as text) as table =>
+				        Table.AddColumn(
+				            Table.UnpivotOtherColumns(Table.RemoveColumns(wide, {"check"}), {}, "check", "failures"),
+				            "area",
+				            each area,
+				            type text
+				        ),
+				    Customer = Table.Combine({Long(val_CustomerMap_RowsAndTotals, "Customer map"), Long(val_DimCustomer, "Dim Customer")}),
+				    All = Table.Combine({
+				        Table.SelectColumns(Customer, {"area", "check", "failures"}),
+				        val_MachineLog, val_BoardIssues, val_InkIssues, val_PlatesAndDies, val_ReworkLog, val_Budget,
+				        val_JobQuoteLink, val_QuoteEstimateLines, val_FxDaily, val_FactJobPL
+				    }),
+				    // value_diff is a rupee amount rounded to paise; any non-zero is a failure, so round up to a count of 1.
+				    Result = Table.TransformColumnTypes(
+				        Table.TransformColumns(All, {{"failures", each if _ = null then 1 else Number.RoundUp(Number.Abs(_)), Int64.Type}}),
+				        {{"area", type text}, {"check", type text}}
+				    )
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

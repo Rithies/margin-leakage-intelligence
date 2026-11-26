@@ -1,0 +1,170 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p09_data_quality_ctl",
+    "position":  {
+                     "x":  792,
+                     "y":  176,
+                     "z":  700,
+                     "height":  528,
+                     "width":  472,
+                     "tabOrder":  700
+                 },
+    "visual":  {
+                   "visualType":  "multiRowCard",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Values":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Jobs"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Jobs",
+                                                                                           "queryRef":  "_Measures.Jobs"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Gross Revenue"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Gross Revenue",
+                                                                                           "queryRef":  "_Measures.Gross Revenue"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Credit Notes"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Credit Notes",
+                                                                                           "queryRef":  "_Measures.Credit Notes"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Net Revenue"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Net Revenue",
+                                                                                           "queryRef":  "_Measures.Net Revenue"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Quoted Revenue"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Quoted Revenue",
+                                                                                           "queryRef":  "_Measures.Quoted Revenue"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Estimated Cost"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Estimated Cost",
+                                                                                           "queryRef":  "_Measures.Estimated Cost"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Actual Cost"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Actual Cost",
+                                                                                           "queryRef":  "_Measures.Actual Cost"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Unabsorbed Machine Cost"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Unabsorbed Machine Cost",
+                                                                                           "queryRef":  "_Measures.Unabsorbed Machine Cost"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Control totals (tie to SQL reconciliation)\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Single-row table of control totals\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

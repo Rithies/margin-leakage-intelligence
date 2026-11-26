@@ -59,6 +59,7 @@ expression stg_Jobs =
 		    Source = fnGetPgTable("erp", "jobs")
 		in
 		    Source
+	lineageTag: 71bbba56-7822-4fdc-bae0-67e5037b88cd
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -68,6 +69,7 @@ expression stg_Quotes =
 		    Source = fnGetPgTable("erp", "quotes")
 		in
 		    Source
+	lineageTag: 7adc644b-6c36-44ff-82b2-b2eeb99afa24
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -77,6 +79,7 @@ expression stg_QuoteEstimates =
 		    Source = fnGetPgTable("erp", "quote_estimates")
 		in
 		    Source
+	lineageTag: 20efa28c-f536-4fb9-bc30-aee5c51d5d32
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -86,6 +89,7 @@ expression stg_QuoteMachineHours =
 		    Source = fnGetPgTable("erp", "quote_machine_hours")
 		in
 		    Source
+	lineageTag: a6157a16-055a-49e1-9e2e-3fbc1f52fba2
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -95,6 +99,7 @@ expression stg_Dispatches =
 		    Source = fnGetPgTable("erp", "dispatches")
 		in
 		    Source
+	lineageTag: bb95e0dd-7afe-4ea7-8fb3-990dc8bca6ac
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -104,6 +109,7 @@ expression stg_CreditNotes =
 		    Source = fnGetPgTable("finance", "credit_notes")
 		in
 		    Source
+	lineageTag: 31a8bc92-c7b1-4d27-9691-a02e1de6f654
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -113,6 +119,7 @@ expression stg_CustomerReceipts =
 		    Source = fnGetPgTable("finance", "customer_receipts")
 		in
 		    Source
+	lineageTag: 9ee484a3-507a-4809-a35d-a6d8a9d616e8
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -122,6 +129,7 @@ expression stg_FxRatesUsdInr =
 		    Source = fnGetPgTable("finance", "fx_rates_usd_inr")
 		in
 		    Source
+	lineageTag: 2c2747c5-9e6f-4681-90bf-d6873efde473
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -131,6 +139,7 @@ expression stg_Customers =
 		    Source = fnGetPgTable("masters", "customers")
 		in
 		    Source
+	lineageTag: b9e88024-ec51-4081-a58d-4322d72712b8
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -140,6 +149,7 @@ expression stg_Skus =
 		    Source = fnGetPgTable("masters", "skus")
 		in
 		    Source
+	lineageTag: db4e61c7-a53a-4f80-ba1d-79b35c231372
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -149,6 +159,7 @@ expression stg_SalesReps =
 		    Source = fnGetPgTable("masters", "sales_reps")
 		in
 		    Source
+	lineageTag: 16c0fea3-f644-474b-afcd-bdad80a564c0
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -158,6 +169,7 @@ expression stg_Estimators =
 		    Source = fnGetPgTable("masters", "estimators")
 		in
 		    Source
+	lineageTag: 1313a40a-6614-4910-91c3-928c70483934
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -167,6 +179,7 @@ expression stg_Operators =
 		    Source = fnGetPgTable("masters", "operators")
 		in
 		    Source
+	lineageTag: 44246c41-82ea-4ca2-a738-8a110c4e0d22
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -176,6 +189,7 @@ expression stg_BoardGrades =
 		    Source = fnGetPgTable("masters", "board_grades")
 		in
 		    Source
+	lineageTag: 02c1bc37-10b2-422b-8683-dc63723eaa43
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -185,6 +199,7 @@ expression stg_BoardPriceHistory =
 		    Source = fnGetPgTable("masters", "board_price_history")
 		in
 		    Source
+	lineageTag: 2e61b665-c43a-4402-b77b-703c5a3cb185
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -194,6 +209,7 @@ expression stg_InkPriceList =
 		    Source = fnGetPgTable("masters", "ink_price_list")
 		in
 		    Source
+	lineageTag: ce0df3dd-cc54-4008-b134-2fb6b347a70d
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -203,6 +219,7 @@ expression stg_PlatePriceList =
 		    Source = fnGetPgTable("masters", "plate_price_list")
 		in
 		    Source
+	lineageTag: 0b89aa87-0cc8-4019-a7f5-71a8c5d5a1c1
 	queryGroup: '02 Staging'
 
 	annotation PBI_ResultType = Table
@@ -212,7 +229,1205 @@ expression stg_ReworkReasons =
 		    Source = fnGetPgTable("masters", "rework_reasons")
 		in
 		    Source
+	lineageTag: edf09fc5-1187-4fb3-8d70-178652e490d0
 	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+/// Root of the Git repo: authored reference files (mappings). Ends with a backslash.
+expression RepoFolder = "C:\Users\gunas\Downloads\proj\margin-leakage-intelligence\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e6655515-524f-4b41-8573-d87a8f39abd7
+	queryGroup: '00 Parameters'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression stg_CustomerCodeMap =
+		let
+		    // Legacy-to-master customer code mapping, maintained in the repo under reference/.
+		    Source = Csv.Document(
+		        File.Contents(RepoFolder & "reference\customer_code_map.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(
+		        PromotedHeaders,
+		        {
+		            {"legacy_code", type text},
+		            {"master_code", type text},
+		            {"gstin", type text},
+		            {"reason", type text},
+		            {"added_on", type date}
+		        },
+		        "en-IN"
+		    )
+		in
+		    Typed
+	lineageTag: 43464d71-530f-4a85-b2c5-e2717bd9b18d
+	queryGroup: '02 Staging'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression fnMapCustomerCode =
+		(inputTable as table, codeColumn as text) as table =>
+		let
+		    // Replaces legacy customer codes with their master code.
+		    // The original value is kept as <codeColumn>_source for audit.
+		    // Left outer join: unmapped rows pass through unchanged and row count is preserved.
+		    Map = Table.SelectColumns(stg_CustomerCodeMap, {"legacy_code", "master_code"}),
+		    Joined = Table.NestedJoin(inputTable, {codeColumn}, Map, {"legacy_code"}, "map", JoinKind.LeftOuter),
+		    Expanded = Table.ExpandTableColumn(Joined, "map", {"master_code"}),
+		    KeptSource = Table.RenameColumns(Expanded, {{codeColumn, codeColumn & "_source"}}),
+		    Mapped = Table.AddColumn(KeptSource, codeColumn, each [master_code] ?? Record.Field(_, codeColumn & "_source"), type text),
+		    Result = Table.RemoveColumns(Mapped, {"master_code"})
+		in
+		    Result
+	lineageTag: d5ab5122-a5b5-423e-b13d-e3ad221413df
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression val_CustomerMap_RowsAndTotals =
+		let
+		    // Checks that fnMapCustomerCode changes codes only. Every check must return 0.
+		    //   rows_diff   : row count change after mapping
+		    //   value_diff  : taxable_value total change after mapping
+		    //   legacy_left : rows still carrying a legacy code
+		    Before = stg_SalesInvoices,
+		    After = fnMapCustomerCode(Before, "customer_code"),
+		    LegacyCodes = List.Buffer(stg_CustomerCodeMap[legacy_code]),
+		    Result = #table(
+		        type table [check = text, rows_diff = Int64.Type, value_diff = number, legacy_left = Int64.Type],
+		        {{
+		            "Customer map on sales invoices",
+		            Table.RowCount(Before) - Table.RowCount(After),
+		            Number.Round(List.Sum(Before[taxable_value]) - List.Sum(After[taxable_value]), 2),
+		            Table.RowCount(Table.SelectRows(After, each List.Contains(LegacyCodes, [customer_code])))
+		        }}
+		    )
+		in
+		    Result
+	lineageTag: 8ecd4c2e-2864-454c-aa88-98f2bb917cc1
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_DimCustomer =
+		let
+		    // Integrity checks for Dim Customer. Every check must return 0.
+		    //   dup_keys         : duplicate customer_code values
+		    //   null_keys        : null or blank customer_code values
+		    //   rows_diff        : Dim rows vs. staging rows less mapped legacy codes
+		    //   unknown_segments : segment values not in reference/segment_list.csv
+		    Dim = #"Dim Customer",
+		    Codes = Dim[customer_code],
+		    AllowedSegments = List.Buffer(stg_SegmentList[segment]),
+		    DupKeys = List.Count(Codes) - List.Count(List.Distinct(Codes)),
+		    NullKeys = List.Count(List.Select(Codes, each _ = null or Text.Trim(_) = "")),
+		    ExpectedRows = Table.RowCount(stg_Customers) - List.Count(stg_CustomerCodeMap[legacy_code]),
+		    RowsDiff = Table.RowCount(Dim) - ExpectedRows,
+		    UnknownSegments = List.Count(List.Select(Dim[segment], each not List.Contains(AllowedSegments, _))),
+		    Result = #table(
+		        type table [check = text, dup_keys = Int64.Type, null_keys = Int64.Type, rows_diff = Int64.Type, unknown_segments = Int64.Type],
+		        {{"Dim Customer", DupKeys, NullKeys, RowsDiff, UnknownSegments}}
+		    )
+		in
+		    Result
+	lineageTag: 76d3519b-3ec5-4518-a3bb-95d23500dfe0
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression stg_SegmentList =
+		let
+		    // Allowed customer segment values, maintained in the repo under reference/.
+		    Source = Csv.Document(
+		        File.Contents(RepoFolder & "reference\segment_list.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(PromotedHeaders, {{"segment", type text}}, "en-IN")
+		in
+		    Typed
+	lineageTag: 22bd0141-5e76-4a05-af71-92e2ed657f52
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression fnStandardiseText =
+		(inputTable as table, columnName as text, allowedValues as list) as table =>
+		let
+		    // Replaces each value with its canonical spelling from allowedValues, matched case-insensitively
+		    // after trimming. Values with no match are left unchanged so a validation check can flag them.
+		    Allowed = List.Buffer(allowedValues),
+		    Standardise = (value as nullable text) as nullable text =>
+		        if value = null then
+		            null
+		        else
+		            let
+		                Position = List.PositionOf(Allowed, Text.Trim(value), Occurrence.First, Comparer.OrdinalIgnoreCase)
+		            in
+		                if Position = -1 then value else Allowed{Position},
+		    Result = Table.TransformColumns(inputTable, {{columnName, Standardise, type text}})
+		in
+		    Result
+	lineageTag: c141e6fd-3e45-457d-b815-765b18cc4df5
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression LabourRateInrPerHour = 220 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 76249186-94b4-4b61-b283-8340bcfae605
+	queryGroup: '00 Parameters'
+
+	annotation PBI_ResultType = Number
+
+expression fnNormaliseJobNo =
+		(jobRef as nullable text) as nullable text =>
+		let
+		    // Converts any job reference to the ERP format JB-YYYY-NNNNN.
+		    //   ERP     JB-2425-00006  ->  JB-2425-00006
+		    //   MES v2  JB242500006    ->  JB-2425-00006
+		    //   Stores  2425/6         ->  JB-2425-00006
+		    // Blank input returns null. Input that cannot be parsed is returned unchanged so the orphan checks flag it.
+		    Cleaned = if jobRef = null then "" else Text.Upper(Text.Trim(jobRef)),
+		    Result =
+		        if Cleaned = "" then
+		            null
+		        else if Text.Contains(Cleaned, "/") then
+		            let
+		                Parts = Text.Split(Cleaned, "/")
+		            in
+		                if List.Count(Parts) = 2 then "JB-" & Parts{0} & "-" & Text.PadStart(Parts{1}, 5, "0") else Cleaned
+		        else
+		            let
+		                Digits = Text.Select(Cleaned, {"0".."9"})
+		            in
+		                if Text.Length(Digits) = 9 then "JB-" & Text.Start(Digits, 4) & "-" & Text.End(Digits, 5) else Cleaned
+		in
+		    Result
+	lineageTag: 5ee00f56-cbec-4bd8-a687-ef117a9b60ad
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression fnPromoteHeaderRow =
+		(sheet as table, firstHeader as text) as table =>
+		let
+		    // For Excel sheets with title rows above the real header: finds the row whose first cell equals firstHeader,
+		    // drops everything above it, promotes it to column names and removes fully blank rows.
+		    // Fails loudly if the header row is not found, rather than returning a wrongly shaped table.
+		    FirstColumn = Table.Column(sheet, Table.ColumnNames(sheet){0}),
+		    HeaderIndex = List.PositionOf(FirstColumn, firstHeader),
+		    CheckedIndex =
+		        if HeaderIndex = -1 then
+		            error Error.Record("Header row not found", "No row starts with '" & firstHeader & "'")
+		        else
+		            HeaderIndex,
+		    Promoted = Table.PromoteHeaders(Table.Skip(sheet, CheckedIndex), [PromoteAllScalars = true]),
+		    NonBlank = Table.SelectRows(
+		        Promoted,
+		        each List.NonNullCount(List.ReplaceValue(Record.FieldValues(_), "", null, Replacer.ReplaceValue)) > 0
+		    )
+		in
+		    NonBlank
+	lineageTag: 17301010-158a-4ca1-aa60-c5fa07217bac
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression fnAddEffectiveValue =
+		(inputTable as table, keyColumn as text, dateColumn as text, priceTable as table, priceKeyColumn as text, effectiveFromColumn as text, valueColumn as text, newColumnName as text) as table =>
+		let
+		    // Effective-dated lookup. For each input row, returns the value from priceTable for the same key whose
+		    // effective-from date is the latest one on or before the row's date. Rows with no such price get null,
+		    // which the validation queries count.
+		    Prices = Table.Buffer(
+		        Table.Sort(
+		            Table.RenameColumns(
+		                Table.SelectColumns(priceTable, {priceKeyColumn, effectiveFromColumn, valueColumn}),
+		                {{priceKeyColumn, "PriceKey"}, {effectiveFromColumn, "EffectiveFrom"}, {valueColumn, "PriceValue"}}
+		            ),
+		            {{"EffectiveFrom", Order.Descending}}
+		        )
+		    ),
+		    Lookup = (key as any, onDate as any) as nullable number =>
+		        if key = null or onDate = null then
+		            null
+		        else
+		            let
+		                Matches = Table.SelectRows(Prices, each [PriceKey] = key and [EffectiveFrom] <= onDate)
+		            in
+		                if Table.IsEmpty(Matches) then null else Matches{0}[PriceValue],
+		    Result = Table.AddColumn(
+		        inputTable,
+		        newColumnName,
+		        each Lookup(Record.Field(_, keyColumn), Record.Field(_, dateColumn)),
+		        type nullable number
+		    )
+		in
+		    Result
+	lineageTag: 967afaa1-2e84-4b9d-9a05-fe2dfdb98644
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression fnCountOrphans =
+		(childTable as table, childKeyColumn as text, parentTable as table, parentKeyColumn as text) as number =>
+		let
+		    // Counts child rows whose non-null key has no match in the parent table. 0 = referential integrity holds.
+		    // Uses an anti-join, which scales to large tables (a per-row List.Contains does not).
+		    ChildKeys = Table.SelectRows(Table.SelectColumns(childTable, {childKeyColumn}), each Record.Field(_, childKeyColumn) <> null),
+		    ParentKeys = Table.Buffer(Table.Distinct(Table.SelectColumns(parentTable, {parentKeyColumn}))),
+		    Unmatched = Table.NestedJoin(ChildKeys, {childKeyColumn}, ParentKeys, {parentKeyColumn}, "Parent", JoinKind.LeftAnti)
+		in
+		    Table.RowCount(Unmatched)
+	lineageTag: c8d54cf7-52fd-43d8-b2b3-61aa78871c5c
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression fnConformMesV1 =
+		(logFile as table) as table =>
+		let
+		    // Old MES export (up to Mar-2025): separate date and HH:mm times, duration in hours.
+		    // Output: the common machine-log schema shared with fnConformMesV2.
+		    Typed = Table.TransformColumnTypes(
+		        logFile,
+		        {
+		            {"log_id", type text}, {"log_date", type date}, {"shift", type text}, {"machine_code", type text},
+		            {"job_no", type text}, {"activity", type text}, {"start_time", type time}, {"end_time", type time},
+		            {"duration_hrs", type number}, {"sheets_in", Int64.Type}, {"good_sheets", Int64.Type},
+		            {"waste_sheets", Int64.Type}, {"operator_id", type text}, {"downtime_reason", type text}
+		        },
+		        "en-IN"
+		    ),
+		    WithStart = Table.AddColumn(Typed, "start_datetime", each [log_date] & [start_time], type datetime),
+		    // A segment that runs past midnight has end_time earlier than start_time: its end falls on the next day.
+		    WithEnd = Table.AddColumn(
+		        WithStart,
+		        "end_datetime",
+		        each ([log_date] & [end_time]) + (if [end_time] < [start_time] then #duration(1, 0, 0, 0) else #duration(0, 0, 0, 0)),
+		        type datetime
+		    ),
+		    Renamed = Table.RenameColumns(
+		        WithEnd,
+		        {
+		            {"sheets_in", "qty_in"}, {"good_sheets", "good_qty"}, {"waste_sheets", "waste_qty"},
+		            {"operator_id", "operator_code"}, {"downtime_reason", "stoppage_reason"}
+		        }
+		    ),
+		    WithVersion = Table.AddColumn(Renamed, "mes_version", each "v1", type text),
+		    Result = Table.SelectColumns(
+		        WithVersion,
+		        {
+		            "log_id", "log_date", "start_datetime", "end_datetime", "shift", "machine_code", "job_no", "activity",
+		            "duration_hrs", "qty_in", "good_qty", "waste_qty", "operator_code", "stoppage_reason", "mes_version"
+		        }
+		    )
+		in
+		    Result
+	lineageTag: 6bf5e85c-7603-411a-9a1a-87c3c711a117
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression fnConformMesV2 =
+		(logFile as table) as table =>
+		let
+		    // New MES export (from Apr-2025): one start timestamp, duration in minutes, different column names.
+		    // Output: the common machine-log schema shared with fnConformMesV1.
+		    Typed = Table.TransformColumnTypes(
+		        logFile,
+		        {
+		            {"LogID", type text}, {"LogStart", type datetime}, {"Shift", type text}, {"Machine", type text},
+		            {"JobNumber", type text}, {"Activity", type text}, {"DurationMinutes", type number}, {"SheetsIn", Int64.Type},
+		            {"GoodSheets", Int64.Type}, {"WasteSheets", Int64.Type}, {"OperatorCode", type text}, {"StoppageReason", type text}
+		        },
+		        "en-IN"
+		    ),
+		    Renamed = Table.RenameColumns(
+		        Typed,
+		        {
+		            {"LogID", "log_id"}, {"LogStart", "start_datetime"}, {"Shift", "shift"}, {"Machine", "machine_code"},
+		            {"JobNumber", "job_no"}, {"Activity", "activity"}, {"SheetsIn", "qty_in"}, {"GoodSheets", "good_qty"},
+		            {"WasteSheets", "waste_qty"}, {"OperatorCode", "operator_code"}, {"StoppageReason", "stoppage_reason"}
+		        }
+		    ),
+		    // Unit conversion: minutes to hours. The log date is the date on which the segment starts.
+		    WithHours = Table.AddColumn(Renamed, "duration_hrs", each [DurationMinutes] / 60, type number),
+		    WithDate = Table.AddColumn(WithHours, "log_date", each DateTime.Date([start_datetime]), type date),
+		    WithEnd = Table.AddColumn(WithDate, "end_datetime", each [start_datetime] + Duration.From([DurationMinutes] / 1440), type datetime),
+		    WithVersion = Table.AddColumn(WithEnd, "mes_version", each "v2", type text),
+		    Result = Table.SelectColumns(
+		        WithVersion,
+		        {
+		            "log_id", "log_date", "start_datetime", "end_datetime", "shift", "machine_code", "job_no", "activity",
+		            "duration_hrs", "qty_in", "good_qty", "waste_qty", "operator_code", "stoppage_reason", "mes_version"
+		        }
+		    )
+		in
+		    Result
+	lineageTag: 5e51edd2-06b4-4155-9a26-b3a399a0b7c8
+	queryGroup: '01 Functions'
+
+	annotation PBI_ResultType = Function
+
+expression stg_InkDescriptionMap =
+		let
+		    // Free-text ink descriptions typed by the ink kitchen, mapped to price-list ink codes. Maintained in the repo under reference/.
+		    Source = Csv.Document(
+		        File.Contents(RepoFolder & "reference\ink_description_map.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(PromotedHeaders, {{"ink_description", type text}, {"ink_code", type text}}, "en-IN"),
+		    // Matching is case- and space-insensitive, so the file needs one row per spelling, not per capitalisation.
+		    WithKey = Table.AddColumn(Typed, "ink_description_key", each Text.Lower(Text.Trim([ink_description])), type text)
+		in
+		    WithKey
+	lineageTag: ae21ed05-7d4b-4567-aa98-12ea6e31510f
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_CostElements =
+		let
+		    // Cost elements of the job P&L and the quote-estimate column that holds each one. Maintained in the repo under reference/.
+		    Source = Csv.Document(
+		        File.Contents(RepoFolder & "reference\cost_elements.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    PromotedHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(PromotedHeaders, {{"element_code", type text}, {"element_name", type text}, {"sort_order", Int64.Type}, {"estimate_column", type text}}, "en-IN")
+		in
+		    Typed
+	lineageTag: ffda7996-aeff-43be-a6ee-a100364074d4
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Machines =
+		let
+		    // Machine master from the costing department's workbook. The sheet has title rows above the header.
+		    Source = Excel.Workbook(File.Contents(DataFolder & "masters\machines_and_rate_card.xlsx"), false),
+		    Sheet = Source{[Item = "Machines", Kind = "Sheet"]}[Data],
+		    Promoted = fnPromoteHeaderRow(Sheet, "Machine Code"),
+		    Renamed = Table.RenameColumns(
+		        Promoted,
+		        {
+		            {"Machine Code", "machine_code"}, {"Machine Name", "machine_name"}, {"Work Centre", "work_centre"},
+		            {"Rated Speed / hr", "rated_speed_per_hr"}, {"Estimating Speed / hr", "estimating_speed_per_hr"},
+		            {"Std Makeready Hrs", "std_makeready_hrs"}, {"Max Colours", "max_colours"}, {"Sheet Format", "sheet_format"},
+		            {"Speed Unit", "speed_unit"}, {"Shifts Worked", "shifts_worked"}
+		        }
+		    ),
+		    Typed = Table.TransformColumnTypes(
+		        Renamed,
+		        {
+		            {"machine_code", type text}, {"machine_name", type text}, {"work_centre", type text},
+		            {"rated_speed_per_hr", Int64.Type}, {"estimating_speed_per_hr", Int64.Type}, {"std_makeready_hrs", type number},
+		            {"max_colours", Int64.Type}, {"sheet_format", type text}, {"speed_unit", type text}, {"shifts_worked", type text}
+		        },
+		        "en-IN"
+		    )
+		in
+		    Typed
+	lineageTag: a313294a-40d0-47a2-bcec-aa77c517811e
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_MachineRates =
+		let
+		    // Machine hour rates approved by Finance, effective-dated (one row per machine per rate change).
+		    Source = Excel.Workbook(File.Contents(DataFolder & "masters\machines_and_rate_card.xlsx"), false),
+		    Sheet = Source{[Item = "Rate History", Kind = "Sheet"]}[Data],
+		    Promoted = fnPromoteHeaderRow(Sheet, "Machine Code"),
+		    Renamed = Table.RenameColumns(
+		        Promoted,
+		        {
+		            {"Machine Code", "machine_code"}, {"Effective From", "effective_from"},
+		            {"Hourly Rate (INR, incl. labour & overhead)", "hourly_rate_inr"}
+		        }
+		    ),
+		    Typed = Table.TransformColumnTypes(
+		        Renamed,
+		        {{"machine_code", type text}, {"effective_from", type date}, {"hourly_rate_inr", type number}},
+		        "en-IN"
+		    )
+		in
+		    Typed
+	lineageTag: c9d12afd-f0c6-4aa5-9707-ba7ce12486fc
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_CartonStyleFactors =
+		let
+		    // Folder-gluer speed and make-ready factors by carton style.
+		    Source = Excel.Workbook(File.Contents(DataFolder & "masters\machines_and_rate_card.xlsx"), false),
+		    Sheet = Source{[Item = "Carton Style Factors", Kind = "Sheet"]}[Data],
+		    Promoted = fnPromoteHeaderRow(Sheet, "Carton Style"),
+		    Renamed = Table.RenameColumns(
+		        Promoted,
+		        {
+		            {"Carton Style", "carton_style"}, {"Style Name", "style_name"},
+		            {"Folder-Gluer Speed Factor", "fg_speed_factor"}, {"Folder-Gluer Makeready Factor", "fg_makeready_factor"}
+		        }
+		    ),
+		    Typed = Table.TransformColumnTypes(
+		        Renamed,
+		        {{"carton_style", type text}, {"style_name", type text}, {"fg_speed_factor", type number}, {"fg_makeready_factor", type number}},
+		        "en-IN"
+		    )
+		in
+		    Typed
+	lineageTag: 19ed9447-e30a-4a7d-a3d8-1a8ac006882d
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_MachineLogFiles =
+		let
+		    // Every MES export file, old and new schema, conformed to one schema. Not yet de-duplicated.
+		    // The schema is detected from the columns, not from the file name, so a mislabelled file still routes correctly.
+		    Files = Folder.Files(DataFolder & "mes_machine_logs\"),
+		    LogFiles = Table.SelectRows(Files, each Text.Lower([Extension]) = ".csv" and Text.StartsWith([Name], "machine_log_")),
+		    Conformed = Table.AddColumn(
+		        LogFiles,
+		        "Log",
+		        each
+		            let
+		                FileName = [Name],
+		                Raw = Table.PromoteHeaders(
+		                    Csv.Document([Content], [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+		                    [PromoteAllScalars = true]
+		                ),
+		                Routed = if Table.HasColumns(Raw, "LogID") then fnConformMesV2(Raw) else fnConformMesV1(Raw)
+		            in
+		                Table.AddColumn(Routed, "source_file", each FileName, type text)
+		    ),
+		    Combined = Table.Combine(Conformed[Log]),
+		    Blanks = Table.ReplaceValue(Combined, "", null, Replacer.ReplaceValue, {"job_no", "operator_code", "stoppage_reason"}),
+		    // The new MES renamed the activity labels; both versions map to one standard list.
+		    ActivityMap = [
+		        MAKEREADY = "Make-ready", RUN = "Run", DOWNTIME = "Stoppage", WASHUP = "Wash-up",
+		        #"Make Ready" = "Make-ready", Production = "Run", Stoppage = "Stoppage", #"Wash-up" = "Wash-up"
+		    ],
+		    Standardised = Table.TransformColumns(
+		        Blanks,
+		        {
+		            {"machine_code", each Text.Remove(Text.Upper(Text.Trim(_)), {"-", " "}), type text},
+		            {"job_no", fnNormaliseJobNo, type nullable text},
+		            {"activity", each Record.FieldOrDefault(ActivityMap, Text.Trim(_), _), type text}
+		        }
+		    )
+		in
+		    Standardised
+	lineageTag: 0c1d0c13-7897-4b1f-a23d-394198cd663d
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_MachineLog =
+		let
+		    // Machine log, one row per segment, with quantity unit and machine-hour cost (costing policy rule 9).
+		    // The new MES re-sent some segments in full; a segment is identified by log_id and counted once.
+		    Unique = Table.Distinct(stg_MachineLogFiles, {"log_id"}),
+		    // Folder-gluers and the window patcher count cartons, not sheets, in qty_in / good_qty / waste_qty.
+		    CartonMachines = List.Buffer(Table.SelectRows(stg_Machines, each [speed_unit] = "cartons")[machine_code]),
+		    WithUnit = Table.AddColumn(Unique, "qty_unit", each if List.Contains(CartonMachines, [machine_code]) then "cartons" else "sheets", type text),
+		    // Segments without a job (maintenance in the old MES) are unabsorbed: reported, never charged to jobs.
+		    WithAbsorption = Table.AddColumn(WithUnit, "is_unabsorbed", each [job_no] = null, type logical),
+		    WithRate = fnAddEffectiveValue(WithAbsorption, "machine_code", "log_date", stg_MachineRates, "machine_code", "effective_from", "hourly_rate_inr", "hourly_rate_inr"),
+		    WithCost = Table.AddColumn(WithRate, "machine_cost_inr", each [duration_hrs] * [hourly_rate_inr], type nullable number)
+		in
+		    WithCost
+	lineageTag: f3c1719f-5d37-43b8-90c5-565cb8a8fa58
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_BoardIssues =
+		let
+		    // Board issues and returns from stores. Returns are negative quantities.
+		    // job_ref uses the stores format (2425/6); qty is in KG or SHEETS depending on uom.
+		    Source = Csv.Document(
+		        File.Contents(DataFolder & "stores\board_issues.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(
+		        Promoted,
+		        {
+		            {"issue_no", type text}, {"issue_date", type date}, {"job_ref", type text}, {"board_grade", type text},
+		            {"gsm", Int64.Type}, {"sheet_size", type text}, {"qty", type number}, {"uom", type text},
+		            {"rate_inr_per_kg", type number}, {"txn_type", type text}
+		        },
+		        "en-IN"
+		    ),
+		    WithJob = Table.AddColumn(Typed, "job_no", each fnNormaliseJobNo([job_ref]), type nullable text),
+		    // sheet_size is "width x height" in millimetres.
+		    WithWidth = Table.AddColumn(WithJob, "sheet_w_mm", each Number.From(Text.BeforeDelimiter([sheet_size], "x")), Int64.Type),
+		    WithHeight = Table.AddColumn(WithWidth, "sheet_h_mm", each Number.From(Text.AfterDelimiter([sheet_size], "x")), Int64.Type),
+		    // Unit conversion: kg = sheets x width (m) x height (m) x GSM / 1000. Unknown units give null (validation counts them).
+		    WithKg = Table.AddColumn(
+		        WithHeight,
+		        "board_kg",
+		        each
+		            if [uom] = "KG" then [qty]
+		            else if [uom] = "SHEETS" then [qty] * ([sheet_w_mm] / 1000) * ([sheet_h_mm] / 1000) * [gsm] / 1000
+		            else null,
+		        type nullable number
+		    ),
+		    WithCost = Table.AddColumn(WithKg, "board_cost_inr", each [board_kg] * [rate_inr_per_kg], type nullable number)
+		in
+		    WithCost
+	lineageTag: efc86c26-e907-4777-9987-414eb5b7e5fd
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_InkIssues =
+		let
+		    // Ink issued to jobs. Descriptions are free text typed by the ink kitchen.
+		    // Identical rows are genuine: each process colour is issued separately and can weigh the same.
+		    Source = Csv.Document(
+		        File.Contents(DataFolder & "stores\ink_issues.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(
+		        Promoted,
+		        {{"job_no", type text}, {"issue_date", type date}, {"ink_description", type text}, {"kg", type number}},
+		        "en-IN"
+		    ),
+		    Standardised = Table.TransformColumns(Typed, {{"job_no", fnNormaliseJobNo, type nullable text}}),
+		    WithKey = Table.AddColumn(Standardised, "ink_description_key", each Text.Lower(Text.Trim([ink_description])), type text)
+		in
+		    WithKey
+	lineageTag: 4761f581-4bac-47da-b87a-1b17bac09056
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_InkIssuesCosted =
+		let
+		    // Ink issues coded to the price-list ink_code and costed at the price effective on the issue date (policy rule 6).
+		    Map = Table.SelectColumns(stg_InkDescriptionMap, {"ink_description_key", "ink_code"}),
+		    Joined = Table.NestedJoin(stg_InkIssues, {"ink_description_key"}, Map, {"ink_description_key"}, "Map", JoinKind.LeftOuter),
+		    Coded = Table.TransformColumnTypes(Table.ExpandTableColumn(Joined, "Map", {"ink_code"}), {{"ink_code", type text}}),
+		    WithPrice = fnAddEffectiveValue(Coded, "ink_code", "issue_date", stg_InkPriceList, "ink_code", "effective_from", "price_inr_per_kg", "price_inr_per_kg"),
+		    WithCost = Table.AddColumn(WithPrice, "ink_cost_inr", each [kg] * [price_inr_per_kg], type nullable number)
+		in
+		    WithCost
+	lineageTag: 5d9a3b33-14fd-48ce-b855-1908c8f422a7
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_PlateLog =
+		let
+		    // CTP plates made for jobs; one row per batch. plate_format is a code (102 or 74), kept as text.
+		    Source = Csv.Document(
+		        File.Contents(DataFolder & "stores\ctp_plate_log.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(
+		        Promoted,
+		        {{"job_no", type text}, {"made_date", type date}, {"plates", Int64.Type}, {"plate_format", type text}, {"reason", type text}},
+		        "en-IN"
+		    ),
+		    Standardised = Table.TransformColumns(Typed, {{"job_no", fnNormaliseJobNo, type nullable text}})
+		in
+		    Standardised
+	lineageTag: 453c5884-7114-46ae-963e-f4878b5743cb
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_PlateLogCosted =
+		let
+		    // Plates costed at the price effective on the made date, by plate format (policy rule 7).
+		    WithPrice = fnAddEffectiveValue(stg_PlateLog, "plate_format", "made_date", stg_PlatePriceList, "plate_format", "effective_from", "price_inr_per_plate", "price_inr_per_plate"),
+		    WithCost = Table.AddColumn(WithPrice, "plate_cost_inr", each [plates] * [price_inr_per_plate], type nullable number)
+		in
+		    WithCost
+	lineageTag: 4a6a37ef-6ddc-4572-96bb-09e17e71a467
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_DieRegister =
+		let
+		    // Cutting dies. The full die cost is charged to first_job_no, the job that triggered the die (policy rule 8).
+		    Source = Csv.Document(
+		        File.Contents(DataFolder & "stores\die_register.csv"),
+		        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+		    ),
+		    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+		    Typed = Table.TransformColumnTypes(
+		        Promoted,
+		        {
+		            {"die_id", type text}, {"sku_code", type text}, {"made_date", type date}, {"first_job_no", type text},
+		            {"die_cost_inr", type number}, {"reason", type text}, {"expected_life_imps", Int64.Type}
+		        },
+		        "en-IN"
+		    ),
+		    Standardised = Table.TransformColumns(Typed, {{"first_job_no", fnNormaliseJobNo, type nullable text}})
+		in
+		    Standardised
+	lineageTag: c440d0e4-a65e-49ff-82cc-8ffecb679628
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_ReworkLog =
+		let
+		    // QA rework log: one sheet per calendar year, same columns on each. New year sheets are picked up automatically.
+		    Source = Excel.Workbook(File.Contents(DataFolder & "quality\rework_log.xlsx"), true),
+		    YearSheets = Table.SelectRows(Source, each [Kind] = "Sheet" and Text.StartsWith([Name], "Rework ")),
+		    Combined = Table.Combine(YearSheets[Data]),
+		    NonBlank = Table.SelectRows(Combined, each [rework_id] <> null and [rework_id] <> ""),
+		    Typed = Table.TransformColumnTypes(
+		        NonBlank,
+		        {
+		            {"rework_id", type text}, {"job_no", type text}, {"reported_on", type date}, {"reason_code", type text},
+		            {"machine_code", type text}, {"rework_hours", type number}, {"extra_sheets", Int64.Type},
+		            {"extra_board_kg", type number}, {"labour_hours", type number}, {"remarks", type text}
+		        },
+		        "en-IN"
+		    ),
+		    Standardised = Table.TransformColumns(
+		        Typed,
+		        {
+		            {"job_no", fnNormaliseJobNo, type nullable text},
+		            {"machine_code", each Text.Remove(Text.Upper(Text.Trim(_)), {"-", " "}), type text}
+		        }
+		    )
+		in
+		    Standardised
+	lineageTag: cb79a130-8398-460d-9bd4-4cd1c72a072c
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_ReworkLogCosted =
+		let
+		    // Rework costed per policy rule 10: rework hours at the machine rate on the reported date, labour hours at the
+		    // labour rate, and extra board kg at the board price of the job's SKU grade in the reported month.
+		    JobSku = Table.Buffer(Table.SelectColumns(stg_Jobs, {"job_no", "sku_code"})),
+		    SkuGrade = Table.Buffer(Table.SelectColumns(stg_Skus, {"sku_code", "board_grade"})),
+		    WithSku = Table.ExpandTableColumn(
+		        Table.NestedJoin(stg_ReworkLog, {"job_no"}, JobSku, {"job_no"}, "Job", JoinKind.LeftOuter), "Job", {"sku_code"}
+		    ),
+		    WithGrade = Table.ExpandTableColumn(
+		        Table.NestedJoin(WithSku, {"sku_code"}, SkuGrade, {"sku_code"}, "Sku", JoinKind.LeftOuter), "Sku", {"board_grade"}
+		    ),
+		    Typed = Table.TransformColumnTypes(WithGrade, {{"sku_code", type text}, {"board_grade", type text}}),
+		    WithMachineRate = fnAddEffectiveValue(Typed, "machine_code", "reported_on", stg_MachineRates, "machine_code", "effective_from", "hourly_rate_inr", "machine_rate_inr"),
+		    // Board prices are monthly (month_start), so the latest month_start on or before the date is that month's price.
+		    WithBoardPrice = fnAddEffectiveValue(WithMachineRate, "board_grade", "reported_on", stg_BoardPriceHistory, "grade_code", "month_start", "price_inr_per_kg", "board_price_inr_per_kg"),
+		    MachineCost = Table.AddColumn(WithBoardPrice, "rework_machine_cost_inr", each [rework_hours] * [machine_rate_inr], type nullable number),
+		    LabourCost = Table.AddColumn(MachineCost, "rework_labour_cost_inr", each [labour_hours] * LabourRateInrPerHour, type nullable number),
+		    BoardCost = Table.AddColumn(LabourCost, "rework_board_cost_inr", each [extra_board_kg] * [board_price_inr_per_kg], type nullable number),
+		    TotalCost = Table.AddColumn(
+		        BoardCost,
+		        "rework_cost_inr",
+		        each [rework_machine_cost_inr] + [rework_labour_cost_inr] + [rework_board_cost_inr],
+		        type nullable number
+		    )
+		in
+		    TotalCost
+	lineageTag: 43cb5975-bb44-475a-9333-80e5c511771b
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_Budget =
+		let
+		    // Annual operating plan: one sheet per financial year, with title rows above a wide month-by-month table.
+		    // Output grain: segment x month. Revenue in INR, gross margin as a fraction and in INR.
+		    Source = Excel.Workbook(File.Contents(DataFolder & "finance\budget.xlsx"), false),
+		    FySheets = Table.SelectRows(Source, each [Kind] = "Sheet" and Text.StartsWith([Name], "FY")),
+		    // Each sheet has its own month headers, so promote and unpivot per sheet before combining.
+		    Unpivoted = List.Transform(
+		        FySheets[Data],
+		        each Table.UnpivotOtherColumns(fnPromoteHeaderRow(_, "Measure"), {"Measure", "Segment"}, "month_label", "value")
+		    ),
+		    Combined = Table.Combine(Unpivoted),
+		    Typed = Table.TransformColumnTypes(
+		        Combined,
+		        {{"Measure", type text}, {"Segment", type text}, {"month_label", type text}, {"value", type number}},
+		        "en-IN"
+		    ),
+		    WithMonth = Table.AddColumn(Typed, "month_start", each Date.FromText([month_label], [Format = "MMM-yy", Culture = "en-US"]), type date),
+		    MeasureCodes = Table.TransformColumns(
+		        WithMonth,
+		        {{"Measure", each if Text.StartsWith(_, "Revenue") then "revenue_lakh" else if Text.StartsWith(_, "Gross margin") then "gross_margin_pct" else _, type text}}
+		    ),
+		    Slim = Table.SelectColumns(MeasureCodes, {"Segment", "month_start", "Measure", "value"}),
+		    Pivoted = Table.Pivot(Slim, {"revenue_lakh", "gross_margin_pct"}, "Measure", "value"),
+		    // Unit conversion: 1 lakh = 100,000 rupees; margin is stored as a percentage number (23 = 23%).
+		    Revenue = Table.AddColumn(Pivoted, "budget_revenue_inr", each [revenue_lakh] * 100000, type number),
+		    Margin = Table.AddColumn(Revenue, "budget_gross_margin_pct", each [gross_margin_pct] / 100, type number),
+		    MarginInr = Table.AddColumn(Margin, "budget_gross_margin_inr", each [budget_revenue_inr] * [budget_gross_margin_pct], type number),
+		    Result = Table.RenameColumns(
+		        Table.SelectColumns(MarginInr, {"Segment", "month_start", "budget_revenue_inr", "budget_gross_margin_pct", "budget_gross_margin_inr"}),
+		        {{"Segment", "segment"}}
+		    )
+		in
+		    Result
+	lineageTag: 8a6adac2-2758-4795-81de-10b45b94b32b
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_FxDaily =
+		let
+		    // Daily FX table covering every calendar day from the first to the last published rate.
+		    // Days with no published rate (weekends, holidays) take the last rate before them (policy rule 4).
+		    // INR rows at 1.0 make every document's conversion one lookup on (currency, date).
+		    // The source publishes USD only; a second foreign currency would need its own fill-forward.
+		    Published = Table.Buffer(Table.SelectColumns(stg_FxRatesUsdInr, {"rate_date", "inr_per_unit"})),
+		    FirstDate = List.Min(Published[rate_date]),
+		    LastDate = List.Max(Published[rate_date]),
+		    Days = List.Dates(FirstDate, Duration.Days(LastDate - FirstDate) + 1, #duration(1, 0, 0, 0)),
+		    Calendar = Table.TransformColumnTypes(Table.FromList(Days, Splitter.SplitByNothing(), {"rate_date"}), {{"rate_date", type date}}),
+		    Joined = Table.NestedJoin(Calendar, {"rate_date"}, Published, {"rate_date"}, "Fx", JoinKind.LeftOuter),
+		    Expanded = Table.TransformColumnTypes(Table.ExpandTableColumn(Joined, "Fx", {"inr_per_unit"}), {{"inr_per_unit", type number}}),
+		    Flagged = Table.AddColumn(Expanded, "is_filled", each [inr_per_unit] = null, type logical),
+		    // Fill down only works on sorted rows: a join does not guarantee order.
+		    Sorted = Table.Sort(Flagged, {{"rate_date", Order.Ascending}}),
+		    Filled = Table.FillDown(Sorted, {"inr_per_unit"}),
+		    Usd = Table.AddColumn(Filled, "currency", each "USD", type text),
+		    Inr = Table.AddColumn(
+		        Table.AddColumn(Table.AddColumn(Calendar, "inr_per_unit", each 1, type number), "is_filled", each false, type logical),
+		        "currency", each "INR", type text
+		    ),
+		    Result = Table.SelectColumns(Table.Combine({Usd, Inr}), {"currency", "rate_date", "inr_per_unit", "is_filled"})
+		in
+		    Result
+	lineageTag: ef1dc99e-fcd6-4dee-8e97-70523926cd76
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_JobQuoteLink =
+		let
+		    // One row per job with the quote it belongs to. Repeat jobs keyed without a quote get the latest Won quote
+		    // for the same SKU dated on or before the order date; ties go to the higher quote_id (costing policy).
+		    // quote_link records how each link was made, so inferred links stay visible in the report.
+		    Jobs = Table.SelectColumns(stg_Jobs, {"job_no", "sku_code", "order_date", "quote_id"}),
+		    WonQuotes = Table.Buffer(
+		        Table.Sort(
+		            Table.SelectColumns(Table.SelectRows(stg_Quotes, each [status] = "Won"), {"quote_id", "sku_code", "quote_date"}),
+		            {{"quote_date", Order.Descending}, {"quote_id", Order.Descending}}
+		        )
+		    ),
+		    FindQuote = (sku as text, onDate as date) as nullable text =>
+		        let
+		            Candidates = Table.SelectRows(WonQuotes, each [sku_code] = sku and [quote_date] <= onDate)
+		        in
+		            if Table.IsEmpty(Candidates) then null else Candidates{0}[quote_id],
+		    Resolved = Table.AddColumn(
+		        Jobs,
+		        "resolved_quote_id",
+		        each if [quote_id] <> null then [quote_id] else FindQuote([sku_code], [order_date]),
+		        type nullable text
+		    ),
+		    Flagged = Table.AddColumn(
+		        Resolved,
+		        "quote_link",
+		        each if [quote_id] <> null then "Keyed" else if [resolved_quote_id] <> null then "Inferred" else "Unresolved",
+		        type text
+		    ),
+		    Selected = Table.SelectColumns(Flagged, {"job_no", "quote_id", "resolved_quote_id", "quote_link"}),
+		    // Two renames, not one: renaming into a name that another column still holds would clash.
+		    KeyedRenamed = Table.RenameColumns(Selected, {{"quote_id", "keyed_quote_id"}}),
+		    Result = Table.RenameColumns(KeyedRenamed, {{"resolved_quote_id", "quote_id"}})
+		in
+		    Result
+	lineageTag: c8b71860-5e91-42c9-9fea-4007155fe11e
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_QuoteEstimateLines =
+		let
+		    // Quote estimates unpivoted from one column per cost element to one row per quote x cost element,
+		    // so estimates line up with actuals by element_code. Driver columns (sheets, kg, hours) are not costs and stay out.
+		    EstimateColumns = List.Buffer(stg_CostElements[estimate_column]),
+		    Wide = Table.SelectColumns(stg_QuoteEstimates, {"quote_id"} & EstimateColumns),
+		    Long = Table.Unpivot(Wide, EstimateColumns, "estimate_column", "est_cost_inr"),
+		    Joined = Table.NestedJoin(Long, {"estimate_column"}, stg_CostElements, {"estimate_column"}, "Element", JoinKind.Inner),
+		    Expanded = Table.ExpandTableColumn(Joined, "Element", {"element_code"}),
+		    Result = Table.TransformColumnTypes(
+		        Table.SelectColumns(Expanded, {"quote_id", "element_code", "est_cost_inr"}),
+		        {{"element_code", type text}, {"est_cost_inr", type number}}
+		    )
+		in
+		    Result
+	lineageTag: 3d0f7aae-3cf3-4e21-8b48-66a354262548
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression val_MachineLog =
+		let
+		    // Machine log checks. Every failures value must be 0.
+		    AllRows = Table.RemoveColumns(stg_MachineLogFiles, {"source_file"}),
+		    Log = stg_MachineLog,
+		    Activities = {"Make-ready", "Run", "Stoppage", "Wash-up"},
+		    Checks = {
+		        {"Machine log", "log_id repeated with different content", Table.RowCount(Table.Distinct(AllRows)) - Table.RowCount(Table.Distinct(AllRows, {"log_id"}))},
+		        {"Machine log", "log_id still duplicated after de-duplication", Table.RowCount(Log) - List.Count(List.Distinct(Log[log_id]))},
+		        {"Machine log", "job_no not found in ERP jobs", fnCountOrphans(Log, "job_no", stg_Jobs, "job_no")},
+		        {"Machine log", "machine_code not in machine master", fnCountOrphans(Log, "machine_code", stg_Machines, "machine_code")},
+		        {"Machine log", "activity outside the standard list", Table.RowCount(Table.SelectRows(Log, each not List.Contains(Activities, [activity])))},
+		        {"Machine log", "duration missing or negative", Table.RowCount(Table.SelectRows(Log, each [duration_hrs] = null or [duration_hrs] < 0))},
+		        {"Machine log", "no machine rate on the log date", Table.RowCount(Table.SelectRows(Log, each [hourly_rate_inr] = null))}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: c257d15c-1be4-440f-979f-badc1809bb12
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_BoardIssues =
+		let
+		    // Board issue checks. Every failures value must be 0.
+		    Board = stg_BoardIssues,
+		    Checks = {
+		        {"Board issues", "job_ref blank", Table.RowCount(Table.SelectRows(Board, each [job_no] = null))},
+		        {"Board issues", "job_ref not found in ERP jobs", fnCountOrphans(Board, "job_no", stg_Jobs, "job_no")},
+		        {"Board issues", "quantity sign does not match txn_type", Table.RowCount(Table.SelectRows(Board, each ([txn_type] = "ISSUE" and [qty] < 0) or ([txn_type] = "RETURN" and [qty] > 0) or not List.Contains({"ISSUE", "RETURN"}, [txn_type])))},
+		        {"Board issues", "kg not calculable (unknown uom or sheet size)", Table.RowCount(Table.SelectRows(Board, each [board_kg] = null))},
+		        {"Board issues", "board_grade not in board grades master", fnCountOrphans(Board, "board_grade", stg_BoardGrades, "grade_code")}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: 72e54396-ab53-4e38-8718-4086978cb444
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_InkIssues =
+		let
+		    // Ink issue checks. Every failures value must be 0.
+		    Map = stg_InkDescriptionMap,
+		    Ink = stg_InkIssuesCosted,
+		    Checks = {
+		        {"Ink issues", "description spelling listed twice in the mapping file", Table.RowCount(Map) - List.Count(List.Distinct(Map[ink_description_key]))},
+		        {"Ink issues", "description not in the mapping file", Table.RowCount(Table.SelectRows(Ink, each [ink_code] = null))},
+		        {"Ink issues", "row count changed by the mapping join", Table.RowCount(stg_InkIssues) - Table.RowCount(Ink)},
+		        {"Ink issues", "job_no not found in ERP jobs", fnCountOrphans(Ink, "job_no", stg_Jobs, "job_no")},
+		        {"Ink issues", "no ink price on the issue date", Table.RowCount(Table.SelectRows(Ink, each [price_inr_per_kg] = null))}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: 4fc2981c-4b91-4f5b-9377-a33786acfce6
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_PlatesAndDies =
+		let
+		    // Plate log and die register checks. Every failures value must be 0.
+		    Plates = stg_PlateLogCosted,
+		    Dies = stg_DieRegister,
+		    Checks = {
+		        {"Plates and dies", "plate log job_no not found in ERP jobs", fnCountOrphans(Plates, "job_no", stg_Jobs, "job_no")},
+		        {"Plates and dies", "plate batch with no price on the made date", Table.RowCount(Table.SelectRows(Plates, each [price_inr_per_plate] = null))},
+		        {"Plates and dies", "die_id duplicated", Table.RowCount(Dies) - List.Count(List.Distinct(Dies[die_id]))},
+		        {"Plates and dies", "die first_job_no not found in ERP jobs", fnCountOrphans(Dies, "first_job_no", stg_Jobs, "job_no")},
+		        {"Plates and dies", "die sku_code not in SKU master", fnCountOrphans(Dies, "sku_code", stg_Skus, "sku_code")}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: ae5f0b59-aead-4ddf-9a25-f45d08cfb892
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_ReworkLog =
+		let
+		    // Rework log checks. Every failures value must be 0.
+		    Rework = stg_ReworkLogCosted,
+		    Checks = {
+		        {"Rework log", "rework_id duplicated", Table.RowCount(Rework) - List.Count(List.Distinct(Rework[rework_id]))},
+		        {"Rework log", "job_no not found in ERP jobs", fnCountOrphans(Rework, "job_no", stg_Jobs, "job_no")},
+		        {"Rework log", "machine_code not in machine master", fnCountOrphans(Rework, "machine_code", stg_Machines, "machine_code")},
+		        {"Rework log", "reason_code not in rework reasons", fnCountOrphans(Rework, "reason_code", stg_ReworkReasons, "reason_code")},
+		        {"Rework log", "no machine rate on the reported date", Table.RowCount(Table.SelectRows(Rework, each [machine_rate_inr] = null))},
+		        {"Rework log", "extra board kg with no board price", Table.RowCount(Table.SelectRows(Rework, each [extra_board_kg] <> 0 and [board_price_inr_per_kg] = null))}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: 1cd25943-880b-4f87-9d0e-7b6a759b95e6
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_Budget =
+		let
+		    // Budget checks. Every failures value must be 0.
+		    Budget = stg_Budget,
+		    SegmentMonths = Table.RowCount(Table.Distinct(Table.SelectColumns(Budget, {"segment", "month_start"}))),
+		    ExpectedSegmentMonths = List.Count(List.Distinct(Budget[month_start])) * Table.RowCount(stg_SegmentList),
+		    Checks = {
+		        {"Budget", "segment not in the reference list", fnCountOrphans(Budget, "segment", stg_SegmentList, "segment")},
+		        {"Budget", "segment x month appears more than once", Table.RowCount(Budget) - SegmentMonths},
+		        {"Budget", "segment x month missing", ExpectedSegmentMonths - SegmentMonths},
+		        {"Budget", "revenue or margin missing", Table.RowCount(Table.SelectRows(Budget, each [budget_revenue_inr] = null or [budget_gross_margin_pct] = null))}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: f3c8c7a5-13ce-45a3-9697-bb76f8317622
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_JobQuoteLink =
+		let
+		    // Job-to-quote link checks. Every failures value must be 0.
+		    Link = stg_JobQuoteLink,
+		    WonQuotes = Table.SelectRows(stg_Quotes, each [status] = "Won"),
+		    Checks = {
+		        {"Job quote link", "row count differs from ERP jobs", Table.RowCount(stg_Jobs) - Table.RowCount(Link)},
+		        {"Job quote link", "job with no quote after inference", Table.RowCount(Table.SelectRows(Link, each [quote_link] = "Unresolved"))},
+		        {"Job quote link", "linked quote not found among Won quotes", fnCountOrphans(Link, "quote_id", WonQuotes, "quote_id")}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: da08aaad-3e28-4737-be3e-cfa1f6b6a2db
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_QuoteEstimateLines =
+		let
+		    // Quote estimate unpivot checks. Tolerance Rs 5 because each of the 8 elements is rounded to whole rupees (D-11). Every failures value must be 0.
+		    Lines = stg_QuoteEstimateLines,
+		    ElementCount = Table.RowCount(stg_CostElements),
+		    PerQuote = Table.Group(Lines, {"quote_id"}, {{"lines_total", each List.Sum([est_cost_inr]), type number}, {"line_count", each Table.RowCount(_), Int64.Type}}),
+		    Compared = Table.ExpandTableColumn(Table.NestedJoin(PerQuote, {"quote_id"}, Table.SelectColumns(stg_QuoteEstimates, {"quote_id", "est_total_cost"}), {"quote_id"}, "Q", JoinKind.LeftOuter), "Q", {"est_total_cost"}),
+		    Checks = {
+		        {"Quote estimate lines", "quote lines do not add up to est_total_cost", Table.RowCount(Table.SelectRows(Compared, each [est_total_cost] = null or Number.Abs([lines_total] - [est_total_cost]) > 5))},
+		        {"Quote estimate lines", "quote without the full set of cost elements", Table.RowCount(Table.SelectRows(PerQuote, each [line_count] <> ElementCount))},
+		        {"Quote estimate lines", "quotes lost in the unpivot", Table.RowCount(stg_QuoteEstimates) - Table.RowCount(PerQuote)}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: e2dc2b11-82e7-4267-a23f-b10d9f6a9457
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+expression val_FxDaily =
+		let
+		    // FX table checks. Every failures value must be 0.
+		    Fx = stg_FxDaily,
+		    Days = Duration.Days(List.Max(Fx[rate_date]) - List.Min(Fx[rate_date])) + 1,
+		    Documents = Table.Distinct(Table.Combine({
+		        Table.RenameColumns(Table.SelectColumns(stg_SalesInvoices, {"currency", "invoice_date"}), {{"invoice_date", "rate_date"}}),
+		        Table.RenameColumns(Table.SelectColumns(stg_CreditNotes, {"currency", "cn_date"}), {{"cn_date", "rate_date"}}),
+		        Table.RenameColumns(Table.SelectColumns(stg_Quotes, {"currency", "quote_date"}), {{"quote_date", "rate_date"}})
+		    })),
+		    Uncovered = Table.NestedJoin(Documents, {"currency", "rate_date"}, Fx, {"currency", "rate_date"}, "Fx", JoinKind.LeftAnti),
+		    Checks = {
+		        {"FX daily", "calendar day missing for a currency", Days * List.Count(List.Distinct(Fx[currency])) - Table.RowCount(Fx)},
+		        {"FX daily", "rate still missing after fill-forward", Table.RowCount(Table.SelectRows(Fx, each [inr_per_unit] = null))},
+		        {"FX daily", "document currency and date with no rate", Table.RowCount(Uncovered)}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	lineageTag: 9a306243-6e9e-4d41-87c4-1e0e72fcfcb9
+	queryGroup: '05 Validation'
+
+	annotation PBI_ResultType = Table
+
+/// Overhead charged on each job's direct actual cost (costing policy rule 12).
+expression OverheadRate = 0.045 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	queryGroup: '00 Parameters'
+
+	annotation PBI_ResultType = Number
+
+expression stg_JobsMapped =
+		let
+		    // ERP jobs with legacy customer codes replaced by the master code (D-13). The original code is kept as customer_code_source.
+		    Result = fnMapCustomerCode(stg_Jobs, "customer_code")
+		in
+		    Result
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_QuotesInr =
+		let
+		    // Quotes with master customer codes and the quoted value in INR at the quote-date rate (policy rules 2 and 4).
+		    Mapped = fnMapCustomerCode(stg_Quotes, "customer_code"),
+		    Fx = Table.SelectColumns(stg_FxDaily, {"currency", "rate_date", "inr_per_unit"}),
+		    Joined = Table.NestedJoin(Mapped, {"currency", "quote_date"}, Fx, {"currency", "rate_date"}, "Fx", JoinKind.LeftOuter),
+		    Expanded = Table.ExpandTableColumn(Joined, "Fx", {"inr_per_unit"}, {"fx_rate"}),
+		    Typed = Table.TransformColumnTypes(Expanded, {{"fx_rate", type number}}),
+		    WithInr = Table.AddColumn(Typed, "quoted_value_inr", each [quoted_value] * [fx_rate], type number),
+		    // Revision 1 is a re-price of a repeat order and is always Won, so it would inflate the win rate.
+		    WithRequote = Table.AddColumn(WithInr, "is_requote", each [revision] > 0, type logical)
+		in
+		    WithRequote
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_InvoicesInr =
+		let
+		    // Sales invoices with master customer codes, in INR at the invoice-date rate (policy rules 3 and 4).
+		    // Revenue = qty x rate per 1000 / 1000. GST is collected for the government and is not revenue.
+		    Mapped = fnMapCustomerCode(stg_SalesInvoices, "customer_code"),
+		    Fx = Table.SelectColumns(stg_FxDaily, {"currency", "rate_date", "inr_per_unit"}),
+		    Joined = Table.NestedJoin(Mapped, {"currency", "invoice_date"}, Fx, {"currency", "rate_date"}, "Fx", JoinKind.LeftOuter),
+		    Expanded = Table.ExpandTableColumn(Joined, "Fx", {"inr_per_unit"}, {"fx_rate"}),
+		    Typed = Table.TransformColumnTypes(Expanded, {{"fx_rate", type number}}),
+		    WithRevenue = Table.AddColumn(Typed, "revenue_inr", each [qty] * [rate_per_1000] / 1000 * [fx_rate], type number),
+		    WithTotal = Table.AddColumn(WithRevenue, "invoice_total_inr", each [invoice_total] * [fx_rate], type number)
+		in
+		    WithTotal
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_CreditNotesInr =
+		let
+		    // Credit notes in INR at the credit-note-date rate. A credit note belongs to the job of its invoice (policy rule 3),
+		    // so the job comes from the invoice, not from the credit note's own customer code.
+		    Fx = Table.SelectColumns(stg_FxDaily, {"currency", "rate_date", "inr_per_unit"}),
+		    Joined = Table.NestedJoin(stg_CreditNotes, {"currency", "cn_date"}, Fx, {"currency", "rate_date"}, "Fx", JoinKind.LeftOuter),
+		    Expanded = Table.ExpandTableColumn(Joined, "Fx", {"inr_per_unit"}, {"fx_rate"}),
+		    WithInr = Table.AddColumn(Table.TransformColumnTypes(Expanded, {{"fx_rate", type number}}), "cn_inr", each [amount] * [fx_rate], type number),
+		    Invoices = Table.SelectColumns(stg_SalesInvoices, {"invoice_no", "job_no"}),
+		    WithJob = Table.ExpandTableColumn(Table.NestedJoin(WithInr, {"invoice_no"}, Invoices, {"invoice_no"}, "Inv", JoinKind.LeftOuter), "Inv", {"job_no"}),
+		    Result = Table.TransformColumnTypes(WithJob, {{"job_no", type text}})
+		in
+		    Result
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_JobBase =
+		let
+		    // One row per job: master customer, the quote it belongs to (keyed or inferred), and the ratio that scales
+		    // the quote to the order: order qty / quote qty (policy rules 1 and 2).
+		    Jobs = Table.SelectColumns(
+		        stg_JobsMapped,
+		        {"job_no", "order_date", "customer_code", "sku_code", "order_qty", "due_date", "completed_on", "rush_order", "repeat_order", "artwork_revised"}
+		    ),
+		    Link = Table.SelectColumns(stg_JobQuoteLink, {"job_no", "quote_id", "quote_link"}),
+		    WithLink = Table.ExpandTableColumn(Table.NestedJoin(Jobs, {"job_no"}, Link, {"job_no"}, "L", JoinKind.LeftOuter), "L", {"quote_id", "quote_link"}),
+		    Quotes = Table.SelectColumns(stg_QuotesInr, {"quote_id", "quote_date", "estimator_code", "quantity", "quoted_value_inr"}),
+		    WithQuote = Table.ExpandTableColumn(
+		        Table.NestedJoin(WithLink, {"quote_id"}, Quotes, {"quote_id"}, "Q", JoinKind.LeftOuter),
+		        "Q",
+		        {"quote_date", "estimator_code", "quantity", "quoted_value_inr"},
+		        {"quote_date", "estimator_code", "quote_qty", "quote_value_inr"}
+		    ),
+		    Typed = Table.TransformColumnTypes(
+		        WithQuote,
+		        {
+		            {"quote_id", type text}, {"quote_link", type text}, {"quote_date", type date}, {"estimator_code", type text},
+		            {"quote_qty", Int64.Type}, {"quote_value_inr", type number}
+		        }
+		    ),
+		    WithRatio = Table.AddColumn(Typed, "qty_ratio", each [order_qty] / [quote_qty], type number),
+		    WithQuotedRevenue = Table.AddColumn(WithRatio, "quoted_revenue_inr", each [quote_value_inr] * [qty_ratio], type number)
+		in
+		    WithQuotedRevenue
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_JobEstimateLines =
+		let
+		    // Estimated cost per job and cost element: the quote's estimate scaled by order qty / quote qty (policy rule 1).
+		    Jobs = Table.SelectColumns(stg_JobBase, {"job_no", "quote_id", "qty_ratio"}),
+		    Joined = Table.NestedJoin(Jobs, {"quote_id"}, stg_QuoteEstimateLines, {"quote_id"}, "E", JoinKind.Inner),
+		    Expanded = Table.ExpandTableColumn(Joined, "E", {"element_code", "est_cost_inr"}),
+		    Scaled = Table.AddColumn(Expanded, "est_inr", each [est_cost_inr] * [qty_ratio], type number),
+		    Result = Table.TransformColumnTypes(Table.SelectColumns(Scaled, {"job_no", "element_code", "est_inr"}), {{"element_code", type text}})
+		in
+		    Result
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression stg_JobActualLines =
+		let
+		    // Actual direct cost per job and cost element (policy rules 5-11), plus overhead at OverheadRate of each job's direct cost (rule 12).
+		    // Unabsorbed machine time has no job and is left out on purpose: it is reported, never charged to jobs.
+		    Pick = (source as table, jobColumn as text, costColumn as text, elementCode as text) as table =>
+		        Table.AddColumn(
+		            Table.RenameColumns(Table.SelectColumns(source, {jobColumn, costColumn}), {{jobColumn, "job_no"}, {costColumn, "actual_inr"}}),
+		            "element_code",
+		            each elementCode,
+		            type text
+		        ),
+		    Lines = Table.Combine({
+		        Pick(stg_BoardIssues, "job_no", "board_cost_inr", "BOARD"),
+		        Pick(stg_InkIssuesCosted, "job_no", "ink_cost_inr", "INK"),
+		        Pick(stg_PlateLogCosted, "job_no", "plate_cost_inr", "PLATES"),
+		        Pick(stg_DieRegister, "first_job_no", "die_cost_inr", "DIES"),
+		        Pick(Table.SelectRows(stg_MachineLog, each not [is_unabsorbed]), "job_no", "machine_cost_inr", "MACHINE"),
+		        Pick(stg_ReworkLogCosted, "job_no", "rework_cost_inr", "REWORK"),
+		        Pick(stg_Dispatches, "job_no", "freight_cost_inr", "FREIGHT")
+		    }),
+		    Direct = Table.Group(Lines, {"job_no", "element_code"}, {{"actual_inr", each List.Sum([actual_inr]), type number}}),
+		    Overhead = Table.Group(Direct, {"job_no"}, {{"actual_inr", each List.Sum([actual_inr]) * OverheadRate, type number}}),
+		    OverheadLines = Table.AddColumn(Overhead, "element_code", each "OVERHEAD", type text),
+		    Result = Table.Combine({Direct, Table.SelectColumns(OverheadLines, {"job_no", "element_code", "actual_inr"})})
+		in
+		    Result
+	queryGroup: '02 Staging'
+
+	annotation PBI_ResultType = Table
+
+expression val_FactJobPL =
+		let
+		    // Job P&L checks. Every failures value must be 0.
+		    // Net revenue is recomputed from invoices and credit notes, independently of the fact (rounded to whole rupees).
+		    Fact = #"Fact Job PL",
+		    Jobs = stg_JobBase,
+		    InvoiceRevenue = List.Sum(stg_InvoicesInr[revenue_inr]) - List.Sum(stg_CreditNotesInr[cn_inr]),
+		    FactRevenue = List.Sum(Table.SelectRows(Fact, each [line_code] = "REVENUE" or [line_code] = "CREDIT_NOTES")[actual_inr]),
+		    CustomerCodes = List.Buffer(#"Dim Customer"[customer_code]),
+		    InvoicedJobs = Table.RowCount(Table.Distinct(Table.SelectColumns(stg_InvoicesInr, {"job_no"}))),
+		    Checks = {
+		        {"Job P&L", "job with no linked quote estimate", Table.RowCount(Table.SelectRows(Jobs, each [quote_qty] = null))},
+		        {"Job P&L", "job with no invoice", Table.RowCount(Jobs) - InvoicedJobs},
+		        {"Job P&L", "net revenue differs from invoices less credit notes (Rs)", Number.Round(Number.Abs(FactRevenue - InvoiceRevenue))},
+		        {"Job P&L", "customer code not in Dim Customer", Table.RowCount(Table.SelectRows(Fact, each not List.Contains(CustomerCodes, [customer_code])))},
+		        {"Job P&L", "actual cost line for a job not in ERP", fnCountOrphans(stg_JobActualLines, "job_no", stg_Jobs, "job_no")},
+		        {"Job P&L", "credit note with no invoice", Table.RowCount(Table.SelectRows(stg_CreditNotesInr, each [job_no] = null))},
+		        {"Job P&L", "document with no FX rate", Table.RowCount(Table.SelectRows(stg_InvoicesInr, each [fx_rate] = null)) + Table.RowCount(Table.SelectRows(stg_CreditNotesInr, each [fx_rate] = null)) + Table.RowCount(Table.SelectRows(stg_QuotesInr, each [fx_rate] = null))}
+		    },
+		    Result = #table(type table [area = text, check = text, failures = Int64.Type], Checks)
+		in
+		    Result
+	queryGroup: '05 Validation'
 
 	annotation PBI_ResultType = Table
 

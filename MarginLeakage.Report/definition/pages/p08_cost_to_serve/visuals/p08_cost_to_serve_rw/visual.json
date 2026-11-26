@@ -1,0 +1,126 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p08_cost_to_serve_rw",
+    "position":  {
+                     "x":  16,
+                     "y":  424,
+                     "z":  400,
+                     "height":  280,
+                     "width":  1248,
+                     "tabOrder":  400
+                 },
+    "visual":  {
+                   "visualType":  "barChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "_Measures"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Rework Cost"
+                                                                                                                }
+                                                                                                },
+                                                                                      "nativeQueryRef":  "Rework Cost",
+                                                                                      "queryRef":  "_Measures.Rework Cost"
+                                                                                  }
+                                                                              ]
+                                                          },
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Column":  {
+                                                                                                                          "Expression":  {
+                                                                                                                                             "SourceRef":  {
+                                                                                                                                                               "Entity":  "Dim Rework Reason"
+                                                                                                                                                           }
+                                                                                                                                         },
+                                                                                                                          "Property":  "Rework Reason"
+                                                                                                                      }
+                                                                                                       },
+                                                                                             "nativeQueryRef":  "Rework Reason",
+                                                                                             "queryRef":  "Dim Rework Reason.Rework Reason"
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Series":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Dim Rework Reason"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Responsibility"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Responsibility",
+                                                                                           "queryRef":  "Dim Rework Reason.Responsibility"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                },
+                                 "sortDefinition":  {
+                                                        "sort":  [
+                                                                     {
+                                                                         "field":  {
+                                                                                       "Measure":  {
+                                                                                                       "Expression":  {
+                                                                                                                          "SourceRef":  {
+                                                                                                                                            "Entity":  "_Measures"
+                                                                                                                                        }
+                                                                                                                      },
+                                                                                                       "Property":  "Rework Cost"
+                                                                                                   }
+                                                                                   },
+                                                                         "direction":  "Descending"
+                                                                     }
+                                                                 ],
+                                                        "isDefaultSort":  true
+                                                    }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Late artwork changes are the costliest rework, and the customer caused them\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Bar chart of rework cost by reason, coloured by who caused it\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

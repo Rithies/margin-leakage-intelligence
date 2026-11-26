@@ -510,3 +510,16 @@ ORDER BY codes DESC, gstin;
 -- WHERE ABS(est_total_cost - (est_board_cost + est_ink_cost + est_plate_cost + est_die_cost
 --      + est_conversion_cost + est_freight_cost + est_rework_allowance + est_overhead)) > 1
 -- LIMIT 20;
+
+
+
+
+SELECT n.credit_note_no,
+       n.invoice_no,
+       n.customer_code AS cn_customer,        -- customer written on the credit note
+       i.customer_code AS invoice_customer    -- customer on the invoice it reduces
+FROM finance.credit_notes n
+JOIN finance.sales_invoices i
+  ON i.invoice_no = n.invoice_no              -- the real link: the specific invoice
+WHERE n.customer_code <> i.customer_code      -- parent found, but the customer disagrees
+ORDER BY n.credit_note_no;

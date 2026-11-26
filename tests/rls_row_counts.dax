@@ -1,0 +1,23 @@
+// RLS test for role 'Sales Rep' (filter: 'Dim Customer'[sales_rep_email] = USERPRINCIPALNAME()).
+// Simulates each rep's filter and checks that the reps' slices add back to the company total:
+// no customer is invisible to every rep and none is visible to two.
+// Live check in Desktop: Modeling > View as > Sales Rep, Other user = sr01@conquercartons.example.
+
+EVALUATE
+VAR PerRep =
+    ADDCOLUMNS (
+        VALUES ( 'Dim Customer'[sales_rep_email] ),
+        "Customers", CALCULATE ( COUNTROWS ( 'Dim Customer' ) ),
+        "Jobs", CALCULATE ( [Jobs] ),
+        "Net Revenue", CALCULATE ( [Net Revenue] )
+    )
+RETURN
+    UNION (
+        PerRep,
+        ROW (
+            "sales_rep_email", "CHECK: reps add up to total",
+            "Customers", SUMX ( PerRep, [Customers] ) - COUNTROWS ( 'Dim Customer' ),
+            "Jobs", SUMX ( PerRep, [Jobs] ) - [Jobs],
+            "Net Revenue", ROUND ( SUMX ( PerRep, [Net Revenue] ) - [Net Revenue], 0 )
+        )
+    )

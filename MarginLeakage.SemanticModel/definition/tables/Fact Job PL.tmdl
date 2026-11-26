@@ -1,0 +1,134 @@
+/// Central fact. Grain: one row per job x P&L line. est_inr = the quote scaled to the order (policy rules 1-2);
+/// actual_inr = invoiced revenue, credit notes (negative) and actual costs (policy rules 3-13). Slicing by P&L line never breaks margin %.
+table 'Fact Job PL'
+
+	column job_no
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: job_no
+
+	column line_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: line_code
+
+	column customer_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_code
+
+	column sku_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: sku_code
+
+	column estimator_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: estimator_code
+
+	column invoice_date
+		dataType: dateTime
+		isHidden
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_date
+		dataType: dateTime
+		isHidden
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column est_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: est_inr
+
+	column actual_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: actual_inr
+
+	partition 'Fact Job PL' = m
+		mode: import
+		queryGroup: '04 Facts'
+		source =
+				let
+				    Jobs = Table.SelectColumns(stg_JobBase, {"job_no", "customer_code", "sku_code", "estimator_code", "order_date", "quoted_revenue_inr"}),
+				    Invoices = Table.SelectColumns(stg_InvoicesInr, {"job_no", "invoice_date", "revenue_inr"}),
+
+				    // Cost lines: estimates and actuals stacked, then summed to job x element. A full outer join would need
+				    // key coalescing; stacking keeps lines that exist on only one side (e.g. a die charged to a repeat job's quote).
+				    EstRows = Table.AddColumn(stg_JobEstimateLines, "actual_inr", each 0, type number),
+				    ActRows = Table.AddColumn(stg_JobActualLines, "est_inr", each 0, type number),
+				    CostLines = Table.RenameColumns(
+				        Table.Group(
+				            Table.Combine({EstRows, ActRows}),
+				            {"job_no", "element_code"},
+				            {{"est_inr", each List.Sum([est_inr]), type number}, {"actual_inr", each List.Sum([actual_inr]), type number}}
+				        ),
+				        {{"element_code", "line_code"}}
+				    ),
+
+				    // Revenue line: quoted revenue (scaled, quote-date FX) against invoiced revenue (invoice-date FX).
+				    RevenueJoined = Table.ExpandTableColumn(
+				        Table.NestedJoin(Jobs, {"job_no"}, Invoices, {"job_no"}, "Inv", JoinKind.LeftOuter), "Inv", {"revenue_inr"}
+				    ),
+				    RevenueLines = Table.SelectColumns(
+				        Table.AddColumn(
+				            Table.AddColumn(
+				                Table.AddColumn(RevenueJoined, "line_code", each "REVENUE", type text),
+				                "est_inr", each [quoted_revenue_inr], type number
+				            ),
+				            "actual_inr", each [revenue_inr] ?? 0, type number
+				        ),
+				        {"job_no", "line_code", "est_inr", "actual_inr"}
+				    ),
+
+				    // Credit-note line: negative, so revenue lines add up to net revenue. Nothing was estimated for credit notes.
+				    CreditLines = Table.AddColumn(
+				        Table.AddColumn(
+				            Table.Group(stg_CreditNotesInr, {"job_no"}, {{"actual_inr", each -List.Sum([cn_inr]), type number}}),
+				            "line_code", each "CREDIT_NOTES", type text
+				        ),
+				        "est_inr", each 0, type number
+				    ),
+
+				    Lines = Table.Combine({CostLines, RevenueLines, Table.SelectColumns(CreditLines, {"job_no", "line_code", "est_inr", "actual_inr"})}),
+
+				    // Job keys: customer, SKU and estimator for the star; invoice date is the active date (revenue is recognised on it).
+				    Keys = Table.ExpandTableColumn(
+				        Table.NestedJoin(Jobs, {"job_no"}, Invoices, {"job_no"}, "Inv", JoinKind.LeftOuter), "Inv", {"invoice_date"}
+				    ),
+				    WithKeys = Table.ExpandTableColumn(
+				        Table.NestedJoin(Lines, {"job_no"}, Keys, {"job_no"}, "K", JoinKind.LeftOuter),
+				        "K",
+				        {"customer_code", "sku_code", "estimator_code", "order_date", "invoice_date"}
+				    ),
+				    Result = Table.TransformColumnTypes(
+				        Table.SelectColumns(WithKeys, {"job_no", "line_code", "customer_code", "sku_code", "estimator_code", "invoice_date", "order_date", "est_inr", "actual_inr"}),
+				        {
+				            {"line_code", type text}, {"customer_code", type text}, {"sku_code", type text}, {"estimator_code", type text},
+				            {"invoice_date", type date}, {"order_date", type date}, {"est_inr", type number}, {"actual_inr", type number}
+				        }
+				    )
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,48 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p06_materials_hdr",
+    "position":  {
+                     "x":  16,
+                     "y":  8,
+                     "z":  100,
+                     "height":  56,
+                     "width":  1248,
+                     "tabOrder":  100
+                 },
+    "visual":  {
+                   "visualType":  "textbox",
+                   "objects":  {
+                                   "general":  [
+                                                   {
+                                                       "properties":  {
+                                                                          "paragraphs":  [
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "color":  "#1B2A3A",
+                                                                                                                                        "fontWeight":  "bold",
+                                                                                                                                        "fontSize":  "18pt"
+                                                                                                                                    },
+                                                                                                                      "value":  "Materials: is board a price problem or a waste problem?"
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             },
+                                                                                             {
+                                                                                                 "textRuns":  [
+                                                                                                                  {
+                                                                                                                      "textStyle":  {
+                                                                                                                                        "fontSize":  "10pt",
+                                                                                                                                        "color":  "#5B6B7B"
+                                                                                                                                    },
+                                                                                                                      "value":  "Board variance split into usage (extra kg at the quote price), planning price (stale quote) and purchase price (paid vs market)."
+                                                                                                                  }
+                                                                                                              ]
+                                                                                             }
+                                                                                         ]
+                                                                      }
+                                                   }
+                                               ]
+                               }
+               }
+}

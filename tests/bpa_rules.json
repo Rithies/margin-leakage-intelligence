@@ -1,0 +1,83 @@
+[
+  {
+    "ID": "MLI_MEASURE_DESCRIPTION",
+    "Name": "Every measure has a description",
+    "Category": "Maintenance",
+    "Description": "Project standard: every measure explains what it means in business words.",
+    "Severity": 2,
+    "Scope": "Measure",
+    "Expression": "string.IsNullOrWhitespace(Description)"
+  },
+  {
+    "ID": "MLI_MEASURE_FOLDER",
+    "Name": "Every measure sits in a numbered display folder",
+    "Category": "Maintenance",
+    "Description": "Measures are grouped in numbered display folders (01 Revenue, 02 Cost, ...).",
+    "Severity": 1,
+    "Scope": "Measure",
+    "Expression": "string.IsNullOrWhitespace(DisplayFolder) or not RegEx.IsMatch(DisplayFolder, \"^[0-9]{2} \")"
+  },
+  {
+    "ID": "MLI_USE_DIVIDE",
+    "Name": "Divide measures with DIVIDE, not /",
+    "Category": "DAX",
+    "Description": "A / between two measures returns an error or infinity when the denominator is 0 or blank. Dividing by a constant (1e7) is fine.",
+    "Severity": 2,
+    "Scope": "Measure, CalculationItem",
+    "Expression": "RegEx.IsMatch(Expression, \"\\]\\s*/\\s*\\[\")"
+  },
+  {
+    "ID": "MLI_HIDE_FOREIGN_KEYS",
+    "Name": "Hide foreign keys",
+    "Category": "Model",
+    "Description": "Fact-side key columns are for relationships, not for report users.",
+    "Severity": 2,
+    "Scope": "DataColumn",
+    "Expression": "Model.Relationships.Any(FromColumn == outerIt) and not IsHidden"
+  },
+  {
+    "ID": "MLI_HIDE_FACT_NUMBERS",
+    "Name": "Hide numeric fact columns (use measures)",
+    "Category": "Model",
+    "Description": "Report users get explicit measures, never implicit sums of fact columns.",
+    "Severity": 2,
+    "Scope": "DataColumn",
+    "Expression": "Table.Name.StartsWith(\"Fact\") and (DataType = \"Double\" or DataType = \"Int64\" or DataType = \"Decimal\") and not IsHidden"
+  },
+  {
+    "ID": "MLI_SINGLE_DIRECTION",
+    "Name": "Relationships filter in one direction",
+    "Category": "Model",
+    "Description": "Bi-directional filters create ambiguity and slow the model. Star schema, one-to-many, single direction.",
+    "Severity": 3,
+    "Scope": "Relationship",
+    "Expression": "CrossFilteringBehavior = CrossFilteringBehavior.BothDirections"
+  },
+  {
+    "ID": "MLI_ONE_TO_MANY",
+    "Name": "Relationships are one-to-many",
+    "Category": "Model",
+    "Description": "Many-to-many relationships hide grain problems.",
+    "Severity": 3,
+    "Scope": "Relationship",
+    "Expression": "FromCardinality.ToString() = \"Many\" and ToCardinality.ToString() = \"Many\""
+  },
+  {
+    "ID": "MLI_DATE_TABLE",
+    "Name": "Dim Date is marked as the date table",
+    "Category": "Model",
+    "Description": "Time intelligence needs a marked date table with a unique, contiguous Date key.",
+    "Severity": 3,
+    "Scope": "Table",
+    "Expression": "Name = \"Dim Date\" and (DataCategory <> \"Time\" or not Columns.Any(IsKey))"
+  },
+  {
+    "ID": "MLI_IMPLICIT_MEASURES",
+    "Name": "Implicit measures are switched off",
+    "Category": "Model",
+    "Description": "discourageImplicitMeasures stops users summing raw columns (and is required by the calculation group).",
+    "Severity": 2,
+    "Scope": "Model",
+    "Expression": "not DiscourageImplicitMeasures"
+  }
+]

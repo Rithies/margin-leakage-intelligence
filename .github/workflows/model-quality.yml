@@ -1,0 +1,32 @@
+name: Model quality (Best Practice Analyzer)
+
+# Runs the project's BPA rules (tests/bpa_rules.json) on the TMDL model on every push that touches it.
+# A severity-3 violation (bi-directional or many-to-many relationship, unmarked date table) fails the build.
+
+on:
+  push:
+    paths:
+      - "MarginLeakage.SemanticModel/**"
+      - "tests/bpa_rules.json"
+      - ".github/workflows/model-quality.yml"
+  workflow_dispatch:
+
+jobs:
+  bpa:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Tabular Editor 2 (portable)
+        shell: pwsh
+        run: |
+          Invoke-WebRequest "https://github.com/TabularEditor/TabularEditor/releases/latest/download/TabularEditor.Portable.zip" -OutFile te2.zip
+          Expand-Archive te2.zip -DestinationPath te2
+
+      - name: Run Best Practice Analyzer
+        shell: pwsh
+        run: |
+          $te = Start-Process -FilePath "te2/TabularEditor.exe" `
+            -ArgumentList '"MarginLeakage.SemanticModel/definition"', '-A', '"tests/bpa_rules.json"', '-G' `
+            -Wait -NoNewWindow -PassThru
+          exit $te.ExitCode

@@ -1,0 +1,21 @@
+/// Customer segments. Shared by Dim Customer and Fact Budget, so plan and actual compare on the same list.
+table 'Dim Segment'
+
+	column Segment
+		dataType: string
+		isKey
+		summarizeBy: none
+		sourceColumn: segment
+
+	partition 'Dim Segment' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    // The canonical segment list from reference/segment_list.csv.
+				    Result = Table.Distinct(stg_SegmentList, {"segment"})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

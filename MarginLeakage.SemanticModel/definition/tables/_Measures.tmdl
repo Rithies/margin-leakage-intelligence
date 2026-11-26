@@ -1,0 +1,507 @@
+/// Home of every measure, in numbered display folders. No data.
+table _Measures
+
+	/// Invoiced revenue before credit notes: qty x rate per 1000 / 1000 at the invoice-date FX rate. Excludes GST.
+	measure 'Gross Revenue' = CALCULATE ( SUM ( 'Fact Job PL'[actual_inr] ), 'Dim PL Line'[line_code] = "REVENUE" )
+		formatString: ₹#,0
+		displayFolder: 01 Revenue
+
+	/// Credit notes raised against the job's invoice, at the credit-note-date FX rate. Shown as a positive amount.
+	measure 'Credit Notes' = - CALCULATE ( SUM ( 'Fact Job PL'[actual_inr] ), 'Dim PL Line'[line_code] = "CREDIT_NOTES" )
+		formatString: ₹#,0
+		displayFolder: 01 Revenue
+
+	/// Revenue the business actually earned: gross invoiced revenue less credit notes (costing policy rule 3).
+	measure 'Net Revenue' = CALCULATE ( SUM ( 'Fact Job PL'[actual_inr] ), 'Dim PL Line'[Line Type] = "Revenue" )
+		formatString: ₹#,0
+		displayFolder: 01 Revenue
+
+	/// What the quotes said the jobs would earn: quoted value scaled to the ordered quantity, at the quote-date FX rate (rule 2).
+	measure 'Quoted Revenue' = CALCULATE ( SUM ( 'Fact Job PL'[est_inr] ), 'Dim PL Line'[Line Type] = "Revenue" )
+		formatString: ₹#,0
+		displayFolder: 01 Revenue
+
+	/// Net revenue less quoted revenue. Positive = the business invoiced more than it quoted.
+	measure 'Revenue vs Quote' = [Net Revenue] - [Quoted Revenue]
+		formatString: ₹#,0
+		displayFolder: 01 Revenue
+
+	/// Net revenue in crore (1 Cr = 1,00,00,000) for cards.
+	measure 'Net Revenue (₹ Cr)' = DIVIDE ( [Net Revenue], 1e7 )
+		formatString: ₹#,0.00" Cr"
+		displayFolder: 01 Revenue
+
+	/// Actual job cost: direct cost (board, ink, plates, dies, machine time, rework, freight) plus 4.5% overhead (rules 5-13).
+	measure 'Actual Cost' = CALCULATE ( SUM ( 'Fact Job PL'[actual_inr] ), 'Dim PL Line'[Line Type] = "Cost" )
+		formatString: ₹#,0
+		displayFolder: 02 Cost
+
+	/// The quote's estimated cost scaled to the ordered quantity (rule 1). Includes the quote's own 4.5% overhead.
+	measure 'Estimated Cost' = CALCULATE ( SUM ( 'Fact Job PL'[est_inr] ), 'Dim PL Line'[Line Type] = "Cost" )
+		formatString: ₹#,0
+		displayFolder: 02 Cost
+
+	/// Actual cost less estimated cost. Positive = the job cost more than quoted.
+	measure 'Cost Overrun' = [Actual Cost] - [Estimated Cost]
+		formatString: ₹#,0
+		displayFolder: 02 Cost
+
+	/// Cost overrun as a share of estimated cost.
+	measure 'Cost Overrun %' = DIVIDE ( [Cost Overrun], [Estimated Cost] )
+		formatString: 0.0%
+		displayFolder: 02 Cost
+
+	/// Cost overrun in crore, for cards and titles.
+	measure 'Cost Overrun (₹ Cr)' = DIVIDE ( [Cost Overrun], 1e7 )
+		formatString: ₹#,0.00" Cr"
+		displayFolder: 02 Cost
+
+	/// Net revenue less actual cost.
+	measure 'Actual Margin' = [Net Revenue] - [Actual Cost]
+		formatString: ₹#,0
+		displayFolder: 03 Margin
+
+	/// Actual margin as a share of net revenue (rule 14).
+	measure 'Actual Margin %' = DIVIDE ( [Actual Margin], [Net Revenue] )
+		formatString: 0.0%
+		displayFolder: 03 Margin
+
+	/// Quoted revenue less estimated cost: the margin the quotes promised.
+	measure 'Quoted Margin' = [Quoted Revenue] - [Estimated Cost]
+		formatString: ₹#,0
+		displayFolder: 03 Margin
+
+	/// Quoted margin as a share of quoted revenue (rule 14).
+	measure 'Quoted Margin %' = DIVIDE ( [Quoted Margin], [Quoted Revenue] )
+		formatString: 0.0%
+		displayFolder: 03 Margin
+
+	/// Rupees of margin lost between quote and P&L: quoted margin less actual margin.
+	measure 'Margin Leak' = [Quoted Margin] - [Actual Margin]
+		formatString: ₹#,0
+		displayFolder: 03 Margin
+
+	/// Margin leak in crore.
+	measure 'Margin Leak (₹ Cr)' = DIVIDE ( [Margin Leak], 1e7 )
+		formatString: ₹#,0.00" Cr"
+		displayFolder: 03 Margin
+
+	/// Quoted margin % less actual margin %, in percentage points.
+	measure 'Margin Leak (pts)' = ( [Quoted Margin %] - [Actual Margin %] ) * 100
+		formatString: 0.0" pts"
+		displayFolder: 03 Margin
+
+	/// Number of jobs in context.
+	measure Jobs = DISTINCTCOUNT ( 'Fact Job PL'[job_no] )
+		formatString: #,0
+		displayFolder: 03 Margin
+
+	/// Jobs whose actual cost was higher than their net revenue.
+	measure 'Loss-Making Jobs' = COUNTROWS ( FILTER ( VALUES ( 'Fact Job PL'[job_no] ), [Actual Margin] < 0 ) )
+		formatString: #,0
+		displayFolder: 03 Margin
+
+	/// Share of jobs that lost money.
+	measure '% Loss-Making Jobs' = DIVIDE ( [Loss-Making Jobs], [Jobs] )
+		formatString: 0.0%
+		displayFolder: 03 Margin
+
+	/// Margin bridge step for a P&L line: the quoted margin on the start bar, then each line's effect on margin
+	/// (revenue lines: actual less quoted; cost lines: estimate less actual). The steps add up to the actual margin.
+	measure 'Margin Bridge' =
+			VAR LineType = SELECTEDVALUE ( 'Dim PL Line'[Line Type] )
+			VAR Estimate = SUM ( 'Fact Job PL'[est_inr] )
+			VAR Actual = SUM ( 'Fact Job PL'[actual_inr] )
+			RETURN
+			    SWITCH (
+			        LineType,
+			        "Start", CALCULATE ( [Quoted Margin], REMOVEFILTERS ( 'Dim PL Line' ) ),
+			        "Revenue", Actual - Estimate,
+			        "Cost", Estimate - Actual,
+			        CALCULATE ( [Actual Margin], REMOVEFILTERS ( 'Dim PL Line' ) )
+			    )
+		formatString: ₹#,0
+		displayFolder: 04 Bridge
+
+	/// Must be 0: quoted margin plus every bridge step less the actual margin. Proves the bridge adds up.
+	measure 'Bridge Check' =
+			VAR Steps =
+			    SUMX ( FILTER ( ALL ( 'Dim PL Line' ), 'Dim PL Line'[Line Type] <> "Start" ), [Margin Bridge] )
+			RETURN
+			    ROUND ( [Quoted Margin] + Steps - [Actual Margin], 0 )
+		formatString: #,0
+		displayFolder: 04 Bridge
+
+	/// Board usage variance in crore, for cards.
+	measure 'Board Usage Variance (₹ Cr)' = DIVIDE ( [Board Usage Variance], 1e7 )
+		formatString: ₹#,0.00" Cr"
+		displayFolder: 05 Board
+
+	/// Board planning price variance in lakh (1 L = 1,00,000), for cards.
+	measure 'Board Planning Price Variance (₹ L)' = DIVIDE ( [Board Planning Price Variance], 1e5 )
+		formatString: ₹#,0.0" L"
+		displayFolder: 05 Board
+
+	/// Board purchase price variance in lakh, for cards.
+	measure 'Board Purchase Price Variance (₹ L)' = DIVIDE ( [Board Purchase Price Variance], 1e5 )
+		formatString: ₹#,0.0" L"
+		displayFolder: 05 Board
+
+	/// Unabsorbed machine cost in lakh, for cards.
+	measure 'Unabsorbed Machine Cost (₹ L)' = DIVIDE ( [Unabsorbed Machine Cost], 1e5 )
+		formatString: ₹#,0.0" L"
+		displayFolder: 06 Shop Floor
+
+	/// Board kg the quotes allowed, scaled to the ordered quantity.
+	measure 'Board Kg Estimated' = SUM ( 'Fact Board Variance'[est_kg] )
+		formatString: #,0
+		displayFolder: 05 Board
+
+	/// Board kg actually issued to jobs, net of returns.
+	measure 'Board Kg Actual' = SUM ( 'Fact Board Variance'[actual_kg] )
+		formatString: #,0
+		displayFolder: 05 Board
+
+	/// Extra board used beyond the estimate, as a share of the estimate.
+	measure 'Board Usage Overrun %' = DIVIDE ( [Board Kg Actual] - [Board Kg Estimated], [Board Kg Estimated] )
+		formatString: 0.0%
+		displayFolder: 05 Board
+
+	/// Usage (waste) variance: extra kg valued at the quote's price. Positive = adverse.
+	measure 'Board Usage Variance' =
+			SUMX (
+			    'Fact Board Variance',
+			    ( 'Fact Board Variance'[actual_kg] - 'Fact Board Variance'[est_kg] ) * 'Fact Board Variance'[est_price_inr_per_kg]
+			)
+		formatString: ₹#,0
+		displayFolder: 05 Board
+
+	/// Price variance: actual kg at the actual price less actual kg at the quote's price. Positive = adverse.
+	measure 'Board Price Variance' =
+			SUMX (
+			    'Fact Board Variance',
+			    'Fact Board Variance'[actual_cost_inr] - 'Fact Board Variance'[actual_kg] * 'Fact Board Variance'[est_price_inr_per_kg]
+			)
+		formatString: ₹#,0
+		displayFolder: 05 Board
+
+	/// Part of the price variance caused by a stale quote: the market price in the order month vs the price on the quote.
+	measure 'Board Planning Price Variance' =
+			SUMX (
+			    'Fact Board Variance',
+			    'Fact Board Variance'[actual_kg] * ( 'Fact Board Variance'[market_price_inr_per_kg] - 'Fact Board Variance'[est_price_inr_per_kg] )
+			)
+		formatString: ₹#,0
+		displayFolder: 05 Board
+
+	/// Part of the price variance caused by buying: price paid vs the market price in the order month.
+	measure 'Board Purchase Price Variance' = [Board Price Variance] - [Board Planning Price Variance]
+		formatString: ₹#,0
+		displayFolder: 05 Board
+
+	/// All machine hours logged, including unabsorbed time.
+	measure 'Machine Hours' = SUM ( 'Fact Machine Log'[duration_hrs] )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// All machine cost logged at the effective hourly rate, including unabsorbed time.
+	measure 'Machine Cost' = SUM ( 'Fact Machine Log'[machine_cost_inr] )
+		formatString: ₹#,0
+		displayFolder: 06 Shop Floor
+
+	/// Machine hours with no job (old-MES maintenance). Reported, never charged to jobs.
+	measure 'Unabsorbed Hours' = CALCULATE ( [Machine Hours], 'Fact Machine Log'[is_unabsorbed] = TRUE () )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// Cost of machine hours with no job.
+	measure 'Unabsorbed Machine Cost' = CALCULATE ( [Machine Cost], 'Fact Machine Log'[is_unabsorbed] = TRUE () )
+		formatString: ₹#,0
+		displayFolder: 06 Shop Floor
+
+	/// Hours spent setting up machines between jobs.
+	measure 'Make-ready Hours' = CALCULATE ( [Machine Hours], 'Fact Machine Log'[Activity] = "Make-ready" )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// Hours lost to stoppages.
+	measure 'Stoppage Hours' = CALCULATE ( [Machine Hours], 'Fact Machine Log'[Activity] = "Stoppage" )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// Make-ready as a share of all machine hours.
+	measure 'Make-ready Share' = DIVIDE ( [Make-ready Hours], [Machine Hours] )
+		formatString: 0.0%
+		displayFolder: 06 Shop Floor
+
+	/// Stoppage as a share of all machine hours.
+	measure 'Stoppage Share' = DIVIDE ( [Stoppage Hours], [Machine Hours] )
+		formatString: 0.0%
+		displayFolder: 06 Shop Floor
+
+	/// Good output as a share of input on run segments (sheets on presses and die-cutters, cartons on folder-gluers).
+	measure 'Run Yield %' =
+			CALCULATE (
+			    DIVIDE ( SUM ( 'Fact Machine Log'[good_qty] ), SUM ( 'Fact Machine Log'[qty_in] ) ),
+			    'Fact Machine Log'[Activity] = "Run"
+			)
+		formatString: 0.0%
+		displayFolder: 06 Shop Floor
+
+	/// Machine hours the quotes planned, scaled to the ordered quantity.
+	measure 'Planned Hours' = SUM ( 'Fact Job Machine'[planned_hrs] )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// Machine hours actually logged against jobs.
+	measure 'Actual Job Hours' = SUM ( 'Fact Job Machine'[actual_hrs] )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// Actual job hours over planned hours, as a share of planned.
+	measure 'Hours Overrun %' = DIVIDE ( [Actual Job Hours] - [Planned Hours], [Planned Hours] )
+		formatString: 0.0%
+		displayFolder: 06 Shop Floor
+
+	/// Make-ready hours logged against jobs (from Fact Job Machine).
+	measure 'Job Make-ready Hours' = SUM ( 'Fact Job Machine'[makeready_hrs] )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// Net revenue less material and freight cost (board, ink, plates, dies, freight): what is left to pay for machine time and overhead.
+	measure Contribution =
+			[Net Revenue]
+			    - CALCULATE ( [Actual Cost], 'Dim PL Line'[line_code] IN { "BOARD", "INK", "PLATES", "DIES", "FREIGHT" } )
+		formatString: ₹#,0
+		displayFolder: 06 Shop Floor
+
+	/// Hours logged on the printing presses, the bottleneck work centre.
+	measure 'Press Hours' = CALCULATE ( [Actual Job Hours], 'Dim Machine'[Work Centre] = "Printing" )
+		formatString: #,0
+		displayFolder: 06 Shop Floor
+
+	/// Contribution earned per hour of press time. Ranks customers and jobs by how well they use the bottleneck.
+	measure 'Contribution per Press Hour' = DIVIDE ( [Contribution], [Press Hours] )
+		formatString: ₹#,0
+		displayFolder: 06 Shop Floor
+
+	/// All quotes in context, won or lost.
+	measure Quotes = COUNTROWS ( 'Fact Quote' )
+		formatString: #,0
+		displayFolder: 07 Commercial
+
+	/// Quotes with status Won.
+	measure 'Quotes Won' = CALCULATE ( [Quotes], 'Fact Quote'[is_won] = TRUE () )
+		formatString: #,0
+		displayFolder: 07 Commercial
+
+	/// Won quotes over all quotes. Inflated by re-quotes of repeat orders, which are always won.
+	measure 'Win Rate' = DIVIDE ( [Quotes Won], [Quotes] )
+		formatString: 0.0%
+		displayFolder: 07 Commercial
+
+	/// Win rate on new business only (re-quotes of repeat orders excluded): the honest measure of how competitive the prices are.
+	measure 'New-Business Win Rate' = CALCULATE ( [Win Rate], 'Fact Quote'[Quote Type] = "New business" )
+		formatString: 0.0%
+		displayFolder: 07 Commercial
+
+	/// New-business win rate weighted by quoted value: big quotes count more.
+	measure 'Value-Weighted Win Rate' =
+			CALCULATE (
+			    DIVIDE (
+			        CALCULATE ( SUM ( 'Fact Quote'[quoted_value_inr] ), 'Fact Quote'[is_won] = TRUE () ),
+			        SUM ( 'Fact Quote'[quoted_value_inr] )
+			    ),
+			    'Fact Quote'[Quote Type] = "New business"
+			)
+		formatString: 0.0%
+		displayFolder: 07 Commercial
+
+	/// Average days from invoice to the last receipt, for paid invoices.
+	measure 'Avg Days to Pay' = AVERAGE ( 'Fact Invoice Payment'[days_to_pay] )
+		formatString: 0
+		displayFolder: 08 Cost to Serve
+
+	/// Average days paid after the customer's payment terms (0 when paid on time).
+	measure 'Avg Days Beyond Terms' = AVERAGE ( 'Fact Invoice Payment'[days_beyond_terms] )
+		formatString: 0
+		displayFolder: 08 Cost to Serve
+
+	/// The cost-of-capital rate chosen on the what-if slicer (default 12%).
+	measure 'Cost of Capital Rate Value' = SELECTEDVALUE ( 'Cost of Capital Rate'[Cost of Capital Rate], 0.12 )
+		formatString: 0%
+		displayFolder: 08 Cost to Serve
+
+	/// Financing cost of waiting to be paid: invoice value x days to pay x rate / 365 (README rule 15). Not in the job P&L.
+	measure 'Cost of Capital' =
+			SUMX (
+			    'Fact Invoice Payment',
+			    'Fact Invoice Payment'[invoice_total_inr] * 'Fact Invoice Payment'[days_to_pay]
+			) * [Cost of Capital Rate Value] / 365
+		formatString: ₹#,0
+		displayFolder: 08 Cost to Serve
+
+	/// Actual margin after the cost of capital, as a share of net revenue.
+	measure 'Margin after Cost of Capital %' = DIVIDE ( [Actual Margin] - [Cost of Capital], [Net Revenue] )
+		formatString: 0.0%
+		displayFolder: 08 Cost to Serve
+
+	/// Freight actual less freight estimate.
+	measure 'Freight Overrun' = CALCULATE ( [Cost Overrun], 'Dim PL Line'[line_code] = "FREIGHT" )
+		formatString: ₹#,0
+		displayFolder: 08 Cost to Serve
+
+	/// Invoices with no receipt yet.
+	measure 'Unpaid Invoices' = CALCULATE ( COUNTROWS ( 'Fact Invoice Payment' ), 'Fact Invoice Payment'[Payment Status] = "Unpaid" )
+		formatString: #,0
+		displayFolder: 08 Cost to Serve
+
+	/// Cost of rework events (policy rule 10).
+	measure 'Rework Cost' = SUM ( 'Fact Rework'[rework_cost_inr] )
+		formatString: ₹#,0
+		displayFolder: 09 Rework
+
+	/// Rework caused by the customer (late artwork changes, QA rejections on text or barcode): a charge-back opportunity.
+	measure 'Customer-Caused Rework Cost' = CALCULATE ( [Rework Cost], 'Dim Rework Reason'[Responsibility] = "Customer" )
+		formatString: ₹#,0
+		displayFolder: 09 Rework
+
+	/// Number of rework events.
+	measure 'Rework Events' = COUNTROWS ( 'Fact Rework' )
+		formatString: #,0
+		displayFolder: 09 Rework
+
+	/// Budgeted revenue for the months that have actuals (months after the data cut-off are excluded, D-15).
+	measure 'Budget Revenue' = CALCULATE ( SUM ( 'Fact Budget'[budget_revenue_inr] ), 'Dim Date'[Is Data Period] = TRUE () )
+		formatString: ₹#,0
+		displayFolder: 10 Plan
+
+	/// Budgeted gross margin for the months that have actuals.
+	measure 'Budget Margin' = CALCULATE ( SUM ( 'Fact Budget'[budget_gross_margin_inr] ), 'Dim Date'[Is Data Period] = TRUE () )
+		formatString: ₹#,0
+		displayFolder: 10 Plan
+
+	/// Budgeted margin as a share of budgeted revenue.
+	measure 'Budget Margin %' = DIVIDE ( [Budget Margin], [Budget Revenue] )
+		formatString: 0.0%
+		displayFolder: 10 Plan
+
+	/// Net revenue less budgeted revenue.
+	measure 'Revenue vs Budget' = [Net Revenue] - [Budget Revenue]
+		formatString: ₹#,0
+		displayFolder: 10 Plan
+
+	/// Revenue variance to budget as a share of budget.
+	measure 'Revenue vs Budget %' = DIVIDE ( [Revenue vs Budget], [Budget Revenue] )
+		formatString: 0.0%
+		displayFolder: 10 Plan
+
+	/// Actual margin % less budgeted margin %, in percentage points.
+	measure 'Margin vs Budget (pts)' = ( [Actual Margin %] - [Budget Margin %] ) * 100
+		formatString: 0.0" pts"
+		displayFolder: 10 Plan
+
+	/// Sum of failures across all validation checks. Must be 0.
+	measure 'DQ Failures' = SUM ( 'DQ Checks'[failures] )
+		formatString: #,0
+		displayFolder: 11 Data Quality
+
+	/// Number of validation checks.
+	measure 'DQ Checks Run' = COUNTROWS ( 'DQ Checks' )
+		formatString: #,0
+		displayFolder: 11 Data Quality
+
+	/// Number of validation checks with 0 failures.
+	measure 'DQ Checks Passed' = COUNTROWS ( FILTER ( 'DQ Checks', 'DQ Checks'[failures] = 0 ) )
+		formatString: #,0
+		displayFolder: 11 Data Quality
+
+	/// PASS when the check (or all checks in context) has 0 failures.
+	measure 'DQ Status' = IF ( [DQ Failures] = 0, "PASS", "FAIL" )
+		displayFolder: 11 Data Quality
+
+	/// Title for the executive page.
+	measure 'Title Executive' =
+			"Quotes promise " & FORMAT ( [Quoted Margin %], "0.0%" ) & " margin; the P&L delivers "
+			    & FORMAT ( [Actual Margin %], "0.0%" ) & ". "
+			    & FORMAT ( [Margin Leak (₹ Cr)], "₹#,0.0" ) & " Cr leaks between quote and invoice, almost all of it cost."
+		displayFolder: 12 Titles
+
+	/// Title for the customer page.
+	measure 'Title Customers' =
+			VAR LossCustomers =
+			    FILTER ( VALUES ( 'Dim Customer'[customer_code] ), [Actual Margin] < 0 )
+			VAR LossRevenue = SUMX ( LossCustomers, [Net Revenue] )
+			RETURN
+			    FORMAT ( COUNTROWS ( LossCustomers ), "0" ) & " customers bring "
+			        & FORMAT ( DIVIDE ( LossRevenue, [Net Revenue] ), "0%" )
+			        & " of revenue and lose money on it, after quoting the thinnest margins"
+		displayFolder: 12 Titles
+
+	/// Title for the 'what loses money' page.
+	measure 'Title Run Length' =
+			VAR ShortRuns =
+			    CALCULATE ( [Actual Margin %], 'Dim Job'[Run Length Band] IN { "1. Under 10k", "2. 10k-25k" } )
+			VAR LongRuns =
+			    CALCULATE ( [Actual Margin %], 'Dim Job'[Run Length Band] = "4. 50k and over" )
+			RETURN
+			    "Runs under 25k cartons earn " & FORMAT ( ShortRuns, "0.0%" ) & " vs " & FORMAT ( LongRuns, "0.0%" )
+			        & " on 50k+: make-ready is fixed, but repeat quotes scale it with quantity"
+		displayFolder: 12 Titles
+
+	/// Title for the estimating page.
+	measure 'Title Estimating' =
+			VAR Worst =
+			    TOPN ( 1, VALUES ( 'Dim Estimator'[Estimator] ), [Cost Overrun %], DESC )
+			RETURN
+			    MAXX ( Worst, 'Dim Estimator'[Estimator] ) & " prices "
+			        & FORMAT ( DIVIDE ( CALCULATE ( [Jobs], Worst ), [Jobs] ), "0%" ) & " of jobs and overruns by "
+			        & FORMAT ( CALCULATE ( [Cost Overrun %], Worst ), "0.0%" ) & "; new-business win rate is only "
+			        & FORMAT ( [New-Business Win Rate], "0%" )
+		displayFolder: 12 Titles
+
+	/// Title for the shop-floor page.
+	measure 'Title Shop Floor' =
+			"Make-ready takes " & FORMAT ( [Make-ready Share], "0%" ) & " of machine hours and jobs run "
+			    & FORMAT ( [Hours Overrun %], "0%" ) & " over planned hours; "
+			    & FORMAT ( [Unabsorbed Machine Cost] / 1e5, "₹#,0" ) & " L of machine time has no job"
+		displayFolder: 12 Titles
+
+	/// Title for the materials page.
+	measure 'Title Materials' =
+			"Board is a waste problem, not a price problem: usage variance "
+			    & FORMAT ( [Board Usage Variance] / 1e7, "₹#,0.00" ) & " Cr vs price variance "
+			    & FORMAT ( [Board Price Variance] / 1e7, "₹#,0.00" ) & " Cr"
+		displayFolder: 12 Titles
+
+	/// Title for the plan-vs-actual page.
+	measure 'Title Plan' =
+			"Revenue is " & FORMAT ( [Revenue vs Budget %], "+0.0%;-0.0%" ) & " vs budget, and margin is "
+			    & FORMAT ( [Margin vs Budget (pts)], "+0.0;-0.0" ) & " pts against the plan: the bigger gap is cost"
+		displayFolder: 12 Titles
+
+	/// Title for the cost-to-serve page.
+	measure 'Title Cost to Serve' =
+			"Waiting to be paid costs " & FORMAT ( [Cost of Capital] / 1e7, "₹#,0.00" ) & " Cr in financing at "
+			    & FORMAT ( [Cost of Capital Rate Value], "0%" ) & "; freight runs "
+			    & FORMAT ( [Freight Overrun] / 1e7, "₹#,0.00" ) & " Cr over quote"
+		displayFolder: 12 Titles
+
+	/// Title for the data-quality page.
+	measure 'Title Data Quality' =
+			FORMAT ( [DQ Checks Passed], "0" ) & " of " & FORMAT ( [DQ Checks Run], "0" )
+			    & " data checks pass; the margin bridge closes to "
+			    & FORMAT ( [Bridge Check], "₹#,0" )
+		displayFolder: 12 Titles
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Column1 = text], {}),
+				    Result = Table.RemoveColumns(Source, {"Column1"})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

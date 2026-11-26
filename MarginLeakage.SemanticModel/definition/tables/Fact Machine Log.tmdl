@@ -1,0 +1,128 @@
+/// Grain: one MES segment (de-duplicated on log_id), costed at the machine rate effective on the log date (policy rule 9).
+/// Segments with no job are unabsorbed capacity: reported here, never charged to jobs.
+table 'Fact Machine Log'
+
+	column log_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: log_id
+
+	column log_date
+		dataType: dateTime
+		isHidden
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: log_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column machine_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: machine_code
+
+	column job_no
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: job_no
+
+	column customer_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_code
+
+	column Activity
+		dataType: string
+		summarizeBy: none
+		sourceColumn: activity
+
+	column Shift
+		dataType: string
+		summarizeBy: none
+		sourceColumn: shift
+
+	column 'Stoppage Reason'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: stoppage_reason
+
+	column 'MES Version'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: mes_version
+
+	column 'Qty Unit'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: qty_unit
+
+	column is_unabsorbed
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		summarizeBy: none
+		sourceColumn: is_unabsorbed
+
+	column duration_hrs
+		dataType: double
+		isHidden
+		formatString: #,0.0
+		summarizeBy: sum
+		sourceColumn: duration_hrs
+
+	column machine_cost_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: machine_cost_inr
+
+	column qty_in
+		dataType: int64
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: qty_in
+
+	column good_qty
+		dataType: int64
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: good_qty
+
+	column waste_qty
+		dataType: int64
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: waste_qty
+
+	partition 'Fact Machine Log' = m
+		mode: import
+		queryGroup: '04 Facts'
+		source =
+				let
+				    Log = stg_MachineLog,
+				    // Customer added so the fact joins the star directly (Dim Job is not linked to Dim Customer, to avoid two filter paths).
+				    Jobs = Table.SelectColumns(stg_JobsMapped, {"job_no", "customer_code"}),
+				    WithCustomer = Table.ExpandTableColumn(Table.NestedJoin(Log, {"job_no"}, Jobs, {"job_no"}, "J", JoinKind.LeftOuter), "J", {"customer_code"}),
+				    Result = Table.TransformColumnTypes(
+				        Table.SelectColumns(
+				            WithCustomer,
+				            {
+				                "log_id", "log_date", "machine_code", "job_no", "customer_code", "activity", "shift", "stoppage_reason", "mes_version",
+				                "qty_unit", "is_unabsorbed", "duration_hrs", "machine_cost_inr", "qty_in", "good_qty", "waste_qty"
+				            }
+				        ),
+				        {{"customer_code", type text}}
+				    )
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

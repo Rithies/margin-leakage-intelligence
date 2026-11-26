@@ -1,0 +1,104 @@
+/// Grain: one invoice with its payment outcome, for cost to serve. Receipts are summed to invoice grain before the join:
+/// some invoices are paid in two parts, and joining receipts directly would double those invoices (fan-out).
+table 'Fact Invoice Payment'
+
+	column invoice_no
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: invoice_no
+
+	column job_no
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: job_no
+
+	column customer_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_code
+
+	column invoice_date
+		dataType: dateTime
+		isHidden
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_receipt_date
+		dataType: dateTime
+		isHidden
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: last_receipt_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Payment Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: payment_status
+
+	column payment_terms_days
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: payment_terms_days
+
+	column days_to_pay
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: days_to_pay
+
+	column days_beyond_terms
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: days_beyond_terms
+
+	column invoice_total_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: invoice_total_inr
+
+	partition 'Fact Invoice Payment' = m
+		mode: import
+		queryGroup: '04 Facts'
+		source =
+				let
+				    Invoices = Table.SelectColumns(stg_InvoicesInr, {"invoice_no", "job_no", "customer_code", "invoice_date", "invoice_total_inr"}),
+				    Receipts = Table.Group(stg_CustomerReceipts, {"invoice_no"}, {{"last_receipt_date", each List.Max([receipt_date]), type date}}),
+				    WithReceipt = Table.ExpandTableColumn(Table.NestedJoin(Invoices, {"invoice_no"}, Receipts, {"invoice_no"}, "R", JoinKind.LeftOuter), "R", {"last_receipt_date"}),
+				    Terms = Table.SelectColumns(stg_Customers, {"customer_code", "payment_terms_days"}),
+				    WithTerms = Table.ExpandTableColumn(Table.NestedJoin(WithReceipt, {"customer_code"}, Terms, {"customer_code"}, "T", JoinKind.LeftOuter), "T", {"payment_terms_days"}),
+				    Status = Table.AddColumn(WithTerms, "payment_status", each if [last_receipt_date] = null then "Unpaid" else "Paid", type text),
+				    // An invoice is paid when its last instalment arrives.
+				    DaysToPay = Table.AddColumn(Status, "days_to_pay", each if [last_receipt_date] = null then null else Duration.Days([last_receipt_date] - [invoice_date]), Int64.Type),
+				    DaysBeyond = Table.AddColumn(
+				        DaysToPay,
+				        "days_beyond_terms",
+				        each if [days_to_pay] = null then null else List.Max({0, [days_to_pay] - [payment_terms_days]}),
+				        Int64.Type
+				    ),
+				    Result = Table.TransformColumnTypes(
+				        Table.SelectColumns(
+				            DaysBeyond,
+				            {"invoice_no", "job_no", "customer_code", "invoice_date", "last_receipt_date", "payment_status", "payment_terms_days", "days_to_pay", "days_beyond_terms", "invoice_total_inr"}
+				        ),
+				        {{"last_receipt_date", type date}, {"payment_terms_days", Int64.Type}}
+				    )
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,27 @@
+/// Estimators who priced the quotes.
+table 'Dim Estimator'
+
+	column estimator_code
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: estimator_code
+
+	column Estimator
+		dataType: string
+		summarizeBy: none
+		sourceColumn: estimator_label
+
+	partition 'Dim Estimator' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    Labelled = Table.AddColumn(stg_Estimators, "estimator_label", each [estimator_code] & " " & [estimator_name], type text),
+				    Result = Table.SelectColumns(Labelled, {"estimator_code", "estimator_label"})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

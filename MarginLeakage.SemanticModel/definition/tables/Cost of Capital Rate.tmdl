@@ -1,0 +1,15 @@
+/// What-if parameter for the cost of capital (README rule 15): 6% to 18% a year, default 12%.
+table 'Cost of Capital Rate'
+
+	column 'Cost of Capital Rate'
+		dataType: double
+		formatString: 0%
+		summarizeBy: none
+		sourceColumn: [Cost of Capital Rate]
+
+	partition 'Cost of Capital Rate' = calculated
+		mode: import
+		source = SELECTCOLUMNS ( GENERATESERIES ( 0.06, 0.18, 0.01 ), "Cost of Capital Rate", [Value] )
+
+	annotation PBI_ResultType = Table
+

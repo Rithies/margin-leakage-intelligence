@@ -1,0 +1,147 @@
+/// One row per master customer. Legacy duplicate codes are excluded and remapped in the facts (D-13).
+table 'Dim Customer'
+	lineageTag: f2c6aec6-6d53-4243-94f4-62354c96095c
+
+	column customer_code
+		dataType: string
+		isHidden
+		isKey
+		lineageTag: 6b4c8e7d-e347-43e8-9d29-cde23be1fba6
+		summarizeBy: none
+		sourceColumn: customer_code
+
+	column Customer
+		dataType: string
+		lineageTag: be4569b0-a701-4563-ba5d-6dea5718a289
+		summarizeBy: none
+		sourceColumn: customer_name
+
+	column 'Customer Label'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: customer_label
+
+	column segment
+		dataType: string
+		isHidden
+		lineageTag: 5340d09f-02fd-4a02-8ac5-f916bb468ee2
+		summarizeBy: none
+		sourceColumn: segment
+
+	column City
+		dataType: string
+		lineageTag: b6b18ef0-0c9e-4ae5-ac23-738414bda20d
+		summarizeBy: none
+		sourceColumn: city
+
+	column State
+		dataType: string
+		lineageTag: c0975c09-988e-4353-a20c-23fcc6b00e24
+		summarizeBy: none
+		sourceColumn: state
+
+	column Country
+		dataType: string
+		lineageTag: 6a3f1366-ef68-42b0-ac58-f6b31f97bb1b
+		summarizeBy: none
+		sourceColumn: country
+
+	column GSTIN
+		dataType: string
+		lineageTag: 7b0a9eaa-14ed-423f-b6d3-5557afc1d722
+		summarizeBy: none
+		sourceColumn: gstin
+
+	column sales_rep_code
+		dataType: string
+		isHidden
+		lineageTag: 5ceeb964-6f4e-404b-8447-49d75a58c722
+		summarizeBy: none
+		sourceColumn: sales_rep_code
+
+	column 'Sales Rep'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: sales_rep_name
+
+	column sales_rep_email
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: sales_rep_email
+
+	column 'Account Type'
+		dataType: string
+		lineageTag: 47e315a1-1c5a-42d8-8290-d2709b5c0dea
+		summarizeBy: none
+		sourceColumn: account_type
+
+	column 'Payment Terms (days)'
+		dataType: int64
+		formatString: 0
+		lineageTag: d7c302d7-06ce-4938-99c0-5f9fa26c3dcd
+		summarizeBy: none
+		sourceColumn: payment_terms_days
+
+	column 'Billing Currency'
+		dataType: string
+		lineageTag: 6476476e-cc43-4730-b324-a58634f751a0
+		summarizeBy: none
+		sourceColumn: billing_currency
+
+	column 'Onboarded On'
+		dataType: dateTime
+		formatString: dd-mmm-yyyy
+		lineageTag: aa33328b-b621-46a9-b40b-b05b516702b9
+		summarizeBy: none
+		sourceColumn: onboarded_on
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Dim Customer' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    // Customer dimension: one row per master customer_code.
+				    // Legacy duplicate codes listed in reference/customer_code_map.csv are excluded;
+				    // fact rows that carry them are remapped by fnMapCustomerCode.
+				    Source = stg_Customers,
+				    LegacyCodes = List.Buffer(stg_CustomerCodeMap[legacy_code]),
+				    MasterCustomers = Table.SelectRows(Source, each not List.Contains(LegacyCodes, [customer_code])),
+
+				    // Standardise free-text fields. sales_rep_code must match the sales-rep master exactly (joins are case-sensitive).
+				    Cleaned = Table.TransformColumns(
+				        MasterCustomers,
+				        {
+				            {"customer_name", Text.Trim, type text},
+				            {"sales_rep_code", Text.Upper, type text}
+				        }
+				    ),
+
+				    // Segment spelling varies in case (e.g. FOOD / Food); map to the canonical list.
+				    StandardisedSegment = fnStandardiseText(Cleaned, "segment", stg_SegmentList[segment]),
+
+				    // Sales rep name and e-mail are denormalised here (star schema). The e-mail drives row-level security.
+				    Reps = Table.SelectColumns(stg_SalesReps, {"sales_rep_code", "sales_rep_name", "email"}),
+				    WithRep = Table.ExpandTableColumn(
+				        Table.NestedJoin(StandardisedSegment, {"sales_rep_code"}, Reps, {"sales_rep_code"}, "Rep", JoinKind.LeftOuter),
+				        "Rep",
+				        {"sales_rep_name", "email"},
+				        {"sales_rep_name", "sales_rep_email"}
+				    ),
+				    WithLabel = Table.AddColumn(WithRep, "customer_label", each [customer_code] & " " & [customer_name], type text),
+				    WithAccountType = Table.AddColumn(WithLabel, "account_type", each if [key_account] = true then "Key account" else "Other", type text),
+				    Selected = Table.SelectColumns(
+				        WithAccountType,
+				        {
+				            "customer_code", "customer_name", "customer_label", "segment", "city", "state", "country", "gstin", "sales_rep_code",
+				            "sales_rep_name", "sales_rep_email", "account_type", "payment_terms_days", "billing_currency", "onboarded_on"
+				        }
+				    ),
+				    Result = Table.TransformColumnTypes(Selected, {{"sales_rep_name", type text}, {"sales_rep_email", type text}})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

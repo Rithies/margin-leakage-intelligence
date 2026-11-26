@@ -1,0 +1,84 @@
+/// Grain: one quote, won or lost. Used for win rates; job costing uses Fact Job PL.
+table 'Fact Quote'
+
+	column quote_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: quote_id
+
+	column quote_date
+		dataType: dateTime
+		isHidden
+		formatString: dd-mmm-yyyy
+		summarizeBy: none
+		sourceColumn: quote_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column customer_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_code
+
+	column sku_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: sku_code
+
+	column estimator_code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: estimator_code
+
+	column 'Quote Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: status
+
+	column 'Quote Type'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: quote_type
+
+	column is_won
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		summarizeBy: none
+		sourceColumn: is_won
+
+	column quoted_value_inr
+		dataType: double
+		isHidden
+		formatString: #,0
+		summarizeBy: sum
+		sourceColumn: quoted_value_inr
+
+	column target_margin_pct
+		dataType: double
+		isHidden
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: target_margin_pct
+
+	partition 'Fact Quote' = m
+		mode: import
+		queryGroup: '04 Facts'
+		source =
+				let
+				    Quotes = stg_QuotesInr,
+				    WithType = Table.AddColumn(Quotes, "quote_type", each if [is_requote] then "Re-quote (repeat order)" else "New business", type text),
+				    WithWon = Table.AddColumn(WithType, "is_won", each [status] = "Won", type logical),
+				    Result = Table.SelectColumns(
+				        WithWon,
+				        {"quote_id", "quote_date", "customer_code", "sku_code", "estimator_code", "status", "quote_type", "is_won", "quoted_value_inr", "target_margin_pct"}
+				    )
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

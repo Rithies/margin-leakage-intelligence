@@ -1,0 +1,156 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name":  "p06_materials_grade",
+    "position":  {
+                     "x":  648,
+                     "y":  176,
+                     "z":  700,
+                     "height":  528,
+                     "width":  616,
+                     "tabOrder":  700
+                 },
+    "visual":  {
+                   "visualType":  "tableEx",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Values":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "Dim SKU"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "Board Grade"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Board Grade",
+                                                                                           "queryRef":  "Dim SKU.Board Grade"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Board Kg Estimated"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Board Kg Estimated",
+                                                                                           "queryRef":  "_Measures.Board Kg Estimated"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Board Kg Actual"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Board Kg Actual",
+                                                                                           "queryRef":  "_Measures.Board Kg Actual"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Board Usage Overrun %"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Board Usage Overrun %",
+                                                                                           "queryRef":  "_Measures.Board Usage Overrun %"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Board Usage Variance"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Board Usage Variance",
+                                                                                           "queryRef":  "_Measures.Board Usage Variance"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Board Planning Price Variance"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Board Planning Price Variance",
+                                                                                           "queryRef":  "_Measures.Board Planning Price Variance"
+                                                                                       },
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Measure":  {
+                                                                                                                         "Expression":  {
+                                                                                                                                            "SourceRef":  {
+                                                                                                                                                              "Entity":  "_Measures"
+                                                                                                                                                          }
+                                                                                                                                        },
+                                                                                                                         "Property":  "Board Purchase Price Variance"
+                                                                                                                     }
+                                                                                                     },
+                                                                                           "nativeQueryRef":  "Board Purchase Price Variance",
+                                                                                           "queryRef":  "_Measures.Board Purchase Price Variance"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                }
+                             },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Board variance by grade\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "general":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "altText":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "\u0027Table of board kg and variances by board grade\u0027"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              }
+               }
+}

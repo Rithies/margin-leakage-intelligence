@@ -1,0 +1,61 @@
+/// P&L lines in margin-bridge order: the quoted margin (bridge start), revenue, credit notes, then the eight cost elements.
+table 'Dim PL Line'
+
+	column line_code
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: line_code
+
+	column 'P&L Line'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: line_name
+		sortByColumn: 'Line Order'
+
+	column 'Line Type'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: line_type
+
+	column 'Line Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: sort_order
+
+	partition 'Dim PL Line' = m
+		mode: import
+		queryGroup: '03 Dimensions'
+		source =
+				let
+				    // "Start" has no fact rows: the bridge measure returns the quoted margin on it.
+				    Fixed = #table(
+				        type table [line_code = text, line_name = text, line_type = text, sort_order = Int64.Type],
+				        {
+				            {"QUOTED_MARGIN", "Quoted margin", "Start", 0},
+				            {"REVENUE", "Revenue", "Revenue", 1},
+				            {"CREDIT_NOTES", "Credit notes", "Revenue", 2}
+				        }
+				    ),
+				    // Cost elements come from reference/cost_elements.csv, the same file that unpivots the quote estimates.
+				    Costs = Table.TransformColumnTypes(
+				        Table.AddColumn(
+				            Table.RenameColumns(
+				                Table.TransformColumns(Table.SelectColumns(stg_CostElements, {"element_code", "element_name", "sort_order"}), {{"sort_order", each _ + 2, Int64.Type}}),
+				                {{"element_code", "line_code"}, {"element_name", "line_name"}}
+				            ),
+				            "line_type",
+				            each "Cost",
+				            type text
+				        ),
+				        {{"line_code", type text}, {"line_name", type text}}
+				    ),
+				    Result = Table.Combine({Fixed, Table.SelectColumns(Costs, {"line_code", "line_name", "line_type", "sort_order"})})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+
